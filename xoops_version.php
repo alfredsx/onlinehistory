@@ -18,7 +18,7 @@
  */
 
 $modversion['name']         = _MI_ONLINEHISTORY_NAME;
-$modversion['version']      = 1.2;
+$modversion['version']      = 1.3;
 $modversion['description']  = _MI_ONLINEHISTORY_DESC;
 $modversion['author']       = "";
 $modversion['credits']      = "The XOOPS Project";
