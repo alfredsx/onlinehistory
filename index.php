@@ -21,6 +21,10 @@ include_once '../../mainfile.php';
 $xoopsOption['template_main'] = "history_index.html";
 include $GLOBALS['xoops']->path('header.php');
 
+include_once __DIR__ . '/blocks/onlinehistory.php';
+$spider = _getAgent("Google");
+print_r($spider);
+
 $start = isset($_GET['start']) ? intval($_GET['start']) : 0;
 
 $history_handler = xoops_getModuleHandler('history','onlinehistory');

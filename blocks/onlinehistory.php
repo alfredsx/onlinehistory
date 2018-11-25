@@ -64,7 +64,7 @@ function b_onlinehistory_show($options) {
   $guest_online_num   = 0;
   $member_online_num  = 0;
   $list_online = array();
-	$block = array();
+  $block = array();
   $module_handler = xoops_gethandler( 'module' );
   $config_handler = xoops_gethandler('config');
   $olModule = $module_handler->getByDirname('onlinehistory');
@@ -251,11 +251,11 @@ function b_onlinehistory_edit($options) {
 function b_onlinehistory_update($guest_online=300, $user_online=8640000){
 	global $xoopsUser, $xoopsModule ;
       
-  $history_handler = xoops_getModuleHandler('history','onlinehistory');
-  $history_handler->getUpdate($guest_online,$user_online);
+	$history_handler = xoops_getModuleHandler('history','onlinehistory');
+	$history_handler->getUpdate($guest_online,$user_online);
         
 	$ip     = $_SERVER['REMOTE_ADDR']; 
-  $agent  = $_SERVER['HTTP_USER_AGENT'];
+	$agent  = $_SERVER['HTTP_USER_AGENT'];
     
 	if ($xoopsUser) {
 		$uid = $xoopsUser->getVar("uid");
@@ -265,90 +265,74 @@ function b_onlinehistory_update($guest_online=300, $user_online=8640000){
 		$uname = _MA_ONLINEHISTORY_GUEST;
 	}
     
-  if ($sumaagent = _getAgent($agent)) 
-  {
-    $uname = "Spider: ".$sumaagent;
-    $uid = -1;
-  }
+	if ($sumaagent = _getAgent($agent)) 
+	{
+		$uname = "Bot: ".$sumaagent;
+		$uid = -1;
+	}
     
-  if ($agent=='') $agent = 'Unknown';
+	if ($agent=='') $agent = 'Unknown';
     
-  $module_handler = xoops_gethandler( 'module' );
-  $config_handler = xoops_gethandler('config');
-  $olModule = $module_handler->getByDirname('onlinehistory');
-  $olConfig = $config_handler->getConfigsByCat(0, $olModule->getVar('mid')); 
-  unset($olModule);
+	$module_handler = xoops_gethandler( 'module' );
+	$config_handler = xoops_gethandler('config');
+	$olModule = $module_handler->getByDirname('onlinehistory');
+	$olConfig = $config_handler->getConfigsByCat(0, $olModule->getVar('mid')); 
+	unset($olModule);
     
-  if ($olConfig['viewsumaonline'] == 1 || $uid > -1) {
-    $moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;
-    $history_handler->getUpdateUser($uid, $uname, $ip, $agent, $moduleid);
-  }  
+	if ($olConfig['viewsumaonline'] == 1 || $uid > -1) {
+		$moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;
+		$history_handler->getUpdateUser($uid, $uname, $ip, $agent, $moduleid);
+	}  
     
-  if ($olConfig['viewmaxonline'] == 1) {
-    $criteria = new CriteriaCompo();
-    $criteria->add(new criteria('online','0','>'));
-    if ($olConfig['viewsumaonline'] == 1) {
-      $criteria->add(new criteria('uid','-1','>'));
-    }
-    $user = $history_handler->getCount($criteria);
-    $history_handler->makemax($user);
-  } 
-    
+	if ($olConfig['viewmaxonline'] == 1) {
+		$criteria = new CriteriaCompo();
+		$criteria->add(new criteria('online','0','>'));
+		if ($olConfig['viewsumaonline'] == 1) {
+			$criteria->add(new criteria('uid','-1','>'));
+		}
+		$user = $history_handler->getCount($criteria);
+		$history_handler->makemax($user);
+	} 
 }
 
 
 function _getAgent($user_agent = "")
 {
-	$_spiders = array (
-		'ABCdatos BotLink'                  => 'ABCdatos BotLink',
-    'Ahoy! The Homepage Finder'         => 'Ahoy! The Homepage Finder',
-    'AlkalineBOT'                       => 'Alkaline',
-    'Ask Jeeves'                        => 'AskJeeves',    
-    'WISENutbot'                        => 'Looksmart',
-		'MSNBot'                            => 'MSN',
-		'W3C_Validator'                     => 'W3C Validator',
-    'Googlebot-Image'                   => 'Google-Image',
-    'Googlebot'                         => 'Google',
-		'Mediapartners-Google'              => 'Google AdSense',
-		'Openbot'                           => 'Openfind',
-		'Yahoo! Slurp'                      => 'Yahoo',
-		'FastCrawler'                       => 'FastCrawler',
-		'Wget'                              => 'Wget',		
-		'Speedy Spider'                     => 'Speedy',
-		'SpiderBot'                         => 'SpiderBot',
-		'IBM_Planetwide'                    => '',
-		'GigaBot'                           => '',
-		'ia_archiver'                       => '',
-		'Inktomi Slurp'                     => '',
-		'appie'                             => 'Walhello',
-		'FeedBurner'                    	  => 'Feedburner',
-    'Feedfetcher-Google'                => '',
-    'OmniExplorer_Bot/6.68'             => 'OmniExplorer Bot',
-    'http://www.relevantnoise.com'      => 'relevantNOISE',
-    'NewsGatorOnline/2.0'               => 'NewsGatorOnline',
-    'ping.blo.gs'                   	  => 'Ping Blog',
-    'Jakarta Commons-HttpClient'  		  => 'Amazon',
-    'Sogou web spider'                  => 'Sogou web',
-    'Baiduspider'                       => 'Baidu',
-    'Speedy Spider'                     => 'Speedy',
-    'Twiceler'                          => '',
-    'affilimatch'                       => 'Affilinet',
-    'Yandex'                            => 'Yandex',
-		'Yeti/1.0'							            => 'Yeti',
-		'DotBot/1.1'						            => 'DotBot',
-		'Superfeedr'						            => 'Superfeedr: Superparser bot',
-		'ahrefs.com/robot/'					        => 'AhrefsBot'
-  );
-	   
-  
-  
-  foreach($_spiders AS $agent => $name) {
-		if (stripos(strtolower($user_agent), strtolower($agent)) !== false)
+	$xmlurl   = "http://www.user-agents.org/allagents.xml";
+	$xmlfile  = 'history_bots';
+
+	xoops_load('XoopsCache');	
+
+	if (!$items = XoopsCache::read($xmlfile)) {
+		$xml = simplexml_load_file($xmlurl);
+		$items = array();
+		foreach ( $xml as $user => $txt)  
+        {  
+			$_items = array();
+			$agent 	= (string)$txt->String;
+			$desc	= (string)$txt->Description;
+			$_items['agent'] = $agent;
+			$_items['desc']  = $desc;
+			$items[] = $_items;
+			unset($desc);
+			unset($agent);
+			unset($_items);
+        } 
+    			
+		if (count($items) < 1 || !is_array($items)) return false;
+		
+		XoopsCache::write($xmlfile,$items,array('duration' => '117800'));
+	}
+	
+	foreach($items as $count => $name) {
+		$agent 	= trim(strtolower($user_agent));
+		$string	= trim(strtolower($name['agent']));
+		$pos 	= strpos($string,$agent);
+		if ($pos !== false)
 		{
-			$spider_name = ($name != '') ? $name : $agent; 
-			return $spider_name;
+			return $name['desc'];
 		}
-  }
+	}
   
 	return false;
 }
