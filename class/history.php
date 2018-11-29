@@ -89,22 +89,22 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
     
     function getUpdateUser($uid=0, $uname='', $ip='', $agent='', $module=0) 
     {
-      if ($uid <= 0 && $ip == '') return false;        
+      if ($uid < -1  || $ip == '') return false;        
       $sql = "SELECT count(uid) as cuid FROM ".$this->table." WHERE uid=".$uid;
-      if ( $uid == 0 ) {
+      if ( $uid < 1 ) {
         $sql .= " AND ip='".$ip."'";
       }
       $result = $this->db->query($sql);
       list($cuid) = $this->db->fetchRow($result);
       if ( $cuid > 0) {
         $sql = "UPDATE ".$this->table." SET time = " . time() . ", ip='".$ip."' ,uagent='".$agent."', username='".$uname."', module=".$module.", online=1 WHERE uid=".$uid."";
-        if($uid == 0)  {
+        if($uid < 1)  {
           $sql .= " AND ip='".$ip."'";
         }
-        $this->db->queryF($sql);
+		$this->db->queryF($sql);
       } else {
         $sql = "INSERT INTO ".$this->table." (uid, username, time, ip, online, uagent, module) VALUES (".$uid.", '".$uname."', ".time().", '".$ip."', 1, '".$agent."', ".$module.")";
-        $this->db->queryF($sql);
+		$this->db->queryF($sql);
       }
       return true;
     }
@@ -124,25 +124,25 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
        
     function getOnline($criteria = NULL)
     {
-      $ret=array();
-      $module_handler = xoops_gethandler('module');
-      $modules = $module_handler->getList(new Criteria('isactive', 1));
-      $online = $this->getObjects($criteria);
+		$ret=array();
+		$module_handler = xoops_gethandler('module');
+		$modules = $module_handler->getList(new Criteria('isactive', 1));
+		$online = $this->getObjects($criteria);
         
-      foreach ($online as $ol) {
-        $l=array();
-        $l['uid']       = $ol->getVar('uid');
-        $l['ip']        = $ol->getVar('ip');
-        $l['name']      = $ol->getVar('username');
-        $utime          = $ol->getVar('time');
-        $l['time']      = formatTimestamp($utime, 'l');
-        $l['online']    = $ol->getVar('online');
-        $l['modul']     = (!empty($modules[$ol->getVar('module')]) ) ? $modules[$ol->getVar('module')] : '';
-        $l['online'] = $ol->getVar('online');
-        $ret[]=$l;
-        unset($l);
-      }
-      return $ret;
+		foreach ($online as $ol) {
+			$l=array();
+			$l['uid']       = $ol->getVar('uid');
+			$l['ip']        = $ol->getVar('ip');
+			$l['name']      = $ol->getVar('username');
+			$utime          = $ol->getVar('time');
+			$l['time']      = formatTimestamp($utime, 'l');
+			$l['online']    = $ol->getVar('online');
+			$l['modul']     = (!empty($modules[$ol->getVar('module')]) ) ? $modules[$ol->getVar('module')] : '';
+			$l['online'] = $ol->getVar('online');
+			$ret[]=$l;
+			unset($l);
+		}
+		return $ret;
     }
 }
 ?>

@@ -258,9 +258,10 @@ function b_onlinehistory_update($guest_online=300, $user_online=8640000){
 		$uname = _MA_ONLINEHISTORY_GUEST;
 	}
     
-	if ($sumaagent = _getAgent($agent)) 
+	$sumaagent = _getAgent($agent);
+	if ($agent == $sumaagent[0] && $uid < 1) 
 	{
-		$uname = "Bot: ".$sumaagent;
+		$uname = "Bot: ".$sumaagent[0];
 		$uid = -1;
 	}
     
@@ -312,7 +313,7 @@ function _getAgent($user_agent = "")
 			unset($_items);
         } 
     			
-		if (count($items) < 1 || !is_array($items)) return false;
+		if (count($items) < 1 || !is_array($items)) return array("", $user_agent);
 		
 		XoopsCache::write($xmlfile,$items,array('duration' => '117800'));
 	}
@@ -320,13 +321,13 @@ function _getAgent($user_agent = "")
 	foreach($items as $count => $name) {
 		$agent 	= trim(strtolower($user_agent));
 		$string	= trim(strtolower($name['agent']));
-		$pos 	= strpos($string,$agent);
+		//$pos 	= strpos($agent,$string);
+		$pos = strpos($string, "bot");
 		if ($pos !== false)
 		{
-			return $name['desc'];
+			return array($user_agent, $name['desc']);
 		}
 	}
-  
-	return false;
+    return array("", $user_agent);
 }
 ?>
