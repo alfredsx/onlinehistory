@@ -1,7 +1,11 @@
 ﻿Version 1.3
 ------------
 #Add: Automatic List Webcrawler/Bots
+#Add: new Logo
 #Fix: Remove & from Handler
+#Fix: view Bots online
+#Fix: update teplates from html to tpl
+
 
 Version 1.2
 -----------
