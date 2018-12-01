@@ -37,14 +37,14 @@ $criteria->setLimit($limit);
 $criteria->setStart($start);
 $criteria->setOrder('time');
 $criteria->add(new criteria('online', '0', '>'));
-$criteria->add(new criteria('time', time() - (60 * 60 * $xoopsModuleConfig['timelife']) , '>='));
+$criteria->add(new criteria('time', time() - (60 * 60 * $xoopsModuleConfig['timelife']), '>='));
 $criteria->setSort('time');
 $criteria->setOrder('DESC');
 $history = $history_handler->getOnline($criteria);
 $count = count($history);
 $xoopsTpl->assign('count', $count);
 $xoopsTpl->assign('onlines', $history);
-$xoopsTpl->assign('breadcrumb', '<li><a href="' . XOOPS_URL . '">' . _YOURHOME . '</a></li> <li class="active">' . $xoopsModule->name().'</li>');
+$xoopsTpl->assign('breadcrumb', '<li><a href="' . XOOPS_URL . '">' . _YOURHOME . '</a></li> <li class="active">' . $xoopsModule->name() . '</li>');
 if ( $history_total > $count ) {
     include_once XOOPS_ROOT_PATH.'/class/pagenav.php';
     $pagenav = new XoopsPageNav($history_total, $xoopsModuleConfig['viewlimit'], $start, 'start', '');
@@ -52,6 +52,6 @@ if ( $history_total > $count ) {
 } else {
     $xoopsTpl->assign('pagenav', '');
 }
-$xoopsTpl->assign('timelife', sprintf(_MA_ONLINEHISTORY_TIMELIFE,$xoopsModuleConfig['timelife']));
+$xoopsTpl->assign('timelife', sprintf(_MA_ONLINEHISTORY_TIMELIFE, $xoopsModuleConfig['timelife']));
 include $GLOBALS['xoops']->path('footer.php');
 ?>
