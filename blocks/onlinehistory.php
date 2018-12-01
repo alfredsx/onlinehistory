@@ -109,51 +109,51 @@ function b_onlinehistory_show($options) {
     } elseif ($guest_online_num == 1 && $member_online_num == 1) {
             $block['online_users'] .= _MB_ONLINEHISTORY_THERE_ONLYON;
     } elseif ($guest_online_num == 1 && $member_online_num > 1) {
-            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_ONEMEMBERMORE,$member_online_num);
+            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_ONEMEMBERMORE, $member_online_num);
     } elseif ($guest_online_num > 1 && $member_online_num == 1) {
-            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_ONEGUESTMORE,$guest_online_num);
+            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_ONEGUESTMORE, $guest_online_num);
     } elseif ($guest_online_num == 0 && $member_online_num > 1) {
-            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_NOMEMBERMORE,$member_online_num);
+            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_NOMEMBERMORE, $member_online_num);
     } elseif ($guest_online_num > 1 && $member_online_num == 0) {
-            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_NOGUESTMORE,$guest_online_num);
+            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_NOGUESTMORE, $guest_online_num);
     } else {
-            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE,$guest_online_num,$member_online_num);
+            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE, $guest_online_num, $member_online_num);
     }
     
     if ($online_spider > 0) {
-        $block['online_suma'] = sprintf(_MB_ONLINEHISTORY_THERE_SPIDERS,$online_spider);
+        $block['online_suma'] = sprintf(_MB_ONLINEHISTORY_THERE_SPIDERS, $online_spider);
     }
     $block['useronline'] = '';
     if ($member_online_num > 0) {
         $first = 0;
-        $result = $xoopsDB->query("SELECT l.uid, l.username, u.name FROM ".$xoopsDB->prefix("lastseen")." as l, ".$xoopsDB->prefix("users")." as u WHERE l.uid>0 AND l.online=1 AND l.uid=u.uid AND 1=1 LIMIT 10");
-        while(list($memuid, $memusername, $memname) = $xoopsDB->fetchRow($result)) {
-        if ($first!=0) {
-            $block['useronline'] .=", ";
+        $result = $xoopsDB->query("SELECT l.uid, l.username, u.name FROM " . $xoopsDB->prefix("lastseen") . " as l, " . $xoopsDB->prefix("users") . " as u WHERE l.uid>0 AND l.online=1 AND l.uid=u.uid AND 1=1 LIMIT 10");
+        while (list($memuid, $memusername, $memname) = $xoopsDB->fetchRow($result)) {
+        if ($first != 0) {
+            $block['useronline'] .= ", ";
         }
             $list_online[] = $memuid;
-            $name = ( $options[3] == 1 ) ? ((trim($memname) != '') ? $memname : $memusername) : $memusername;
-            $block['useronline'] .="<a href=\"".XOOPS_URL."/userinfo.php?uid=$memuid\">".$myts->htmlSpecialChars($name)."</a>";
-            $first= 1;
+            $name = ($options[3] == 1) ? ((trim($memname) != '') ? $memname : $memusername) : $memusername;
+            $block['useronline'] .= "<a href=\"" . XOOPS_URL . "/userinfo.php?uid=$memuid\">" . $myts->htmlSpecialChars($name) . "</a>";
+            $first = 1;
         }
-        if ($first==1) {
-            $block['useronline'] .="";
+        if ($first == 1) {
+            $block['useronline'] .= "";
         }
     } 
-    $block['lang_more'] ="<a href=\"javascript:openWithSelfMain('".XOOPS_URL."/modules/".basename(dirname(dirname(__FILE__)))."/blocks/showuser.php?action=showpopups&amp;type=online','Online',450,490);\">"._MB_ONLINEHISTORY_MORE."</a><br />";
+    $block['lang_more'] = "<a href=\"javascript:openWithSelfMain('" . XOOPS_URL . "/modules/" . basename(dirname(dirname(__FILE__))) . "/blocks/showuser.php?action=showpopups&amp;type=online','Online',450,490);\">" . _MB_ONLINEHISTORY_MORE . "</a><br />";
     $block['content'] = "";
-    if ( $options[0] == 1 ) {
+    if ($options[0] == 1) {
         $usonly = array();
         $mintime = time() - ($options[1] * 86400);
-        $result = $xoopsDB->query("SELECT l.uid, l.username, l.time, u.name FROM ".$xoopsDB->prefix("lastseen")." as l, ".$xoopsDB->prefix("users")." as u WHERE l.uid>0 AND l.time>".$mintime." AND l.uid=u.uid AND 1=1 ORDER BY l.time DESC ",$options[2],0);
+        $result = $xoopsDB->query("SELECT l.uid, l.username, l.time, u.name FROM " . $xoopsDB->prefix("lastseen") . " as l, " . $xoopsDB->prefix("users") . " as u WHERE l.uid>0 AND l.time>" . $mintime . " AND l.uid=u.uid AND 1=1 ORDER BY l.time DESC ", $options[2], 0);
         while (list($uid, $uname, $time, $rname) = $xoopsDB->fetchRow($result)) {
-            if (!in_array($uid,$list_online)) {
+            if (!in_array($uid, $list_online)) {
                 $u = array();
                 $lastvisit = b_onlinehistory_create($time);     
-                $name = ( $options[3] == 1 ) ? ((trim($rname) != '') ? $rname : $uname) : $uname;                         
-                $u['user'] = "<a href=\"".XOOPS_URL."/userinfo.php?uid=".$uid."\">".$myts->htmlSpecialChars($name)."</a>";
+                $name = ($options[3] == 1) ? ((trim($rname) != '') ? $rname : $uname) : $uname;                         
+                $u['user'] = "<a href=\"" . XOOPS_URL . "/userinfo.php?uid=" . $uid . "\">" . $myts->htmlSpecialChars($name) . "</a>";
                 $u['last'] = $lastvisit;
-                $usonly[]=$u;
+                $usonly[] = $u;
             }
         }
         $block['content'] = $usonly;
@@ -161,55 +161,55 @@ function b_onlinehistory_show($options) {
     return $block;
 }
 
-function b_onlinehistory_create($date){
+function b_onlinehistory_create($date) {
     $realtime = time() - $date;
     $lastvisit = "";
     $days = $hours = $mins = 0;
 	
     // how many days ago?
-    if ( $realtime >= 86400 ) { // if it's been more than a day
+    if ($realtime >= 86400) { // if it's been more than a day
         $days = floor($realtime / (86400));		
     } else {
 	
         // how many hours ago?
-        if ( $realtime >= (3600) ) {
+        if ($realtime >= (3600)) {
             $hours = floor($realtime / (3600));
-            $realtime -= (3600*$hours);
+            $realtime -= (3600 * $hours);
         }
 	
         // how many minutes ago?
-        if ( $realtime >= 60 ) {
+        if ($realtime >= 60) {
             $mins = floor($realtime / 60);
-            $realtime -= (60*$mins);				
+            $realtime -= (60 * $mins);				
         }
 
         // just a little precation, although I don't *think* mins will ever be 60...
-        if ( $mins == 60 ) {
+        if ($mins == 60) {
             $mins = 0;
             $hours += 1;
         }
     }
-    if ( $days > 1 ) {
-        $lastvisit .= sprintf(_MB_ONLINEHISTORY_DAYS,$days);
-    } elseif($days == 1) {
+    if ($days > 1) {
+        $lastvisit .= sprintf(_MB_ONLINEHISTORY_DAYS, $days);
+    } elseif ($days == 1) {
         $lastvisit .= _MB_ONLINEHISTORY_1DAY;
     }
-    if ( $hours > 0 ) {
-        if($hours == 1){
+    if ($hours > 0) {
+        if ($hours == 1) {
             $lastvisit .= _MB_ONLINEHISTORY_1HR;
-        } else{
-            $lastvisit .= sprintf(_MB_ONLINEHISTORY_HRS,$hours);
+        } else {
+            $lastvisit .= sprintf(_MB_ONLINEHISTORY_HRS, $hours);
         }
     }
-    if ( $mins > 0 ) {
-        if ( $mins == 1 ) {
+    if ($mins > 0) {
+        if ($mins == 1) {
             $lastvisit .= _MB_ONLINEHISTORY_1MIN;
         } else {
-            $lastvisit .= sprintf(_MB_ONLINEHISTORY_MINS,$mins);
+            $lastvisit .= sprintf(_MB_ONLINEHISTORY_MINS, $mins);
         }
     }
-    if ( !$days && !$hours && !$mins ) {
-        $lastvisit .= sprintf(_MB_ONLINEHISTORY_SCNDS,$realtime);
+    if (!$days && !$hours && !$mins) {
+        $lastvisit .= sprintf(_MB_ONLINEHISTORY_SCNDS, $realtime);
     }
 			
     $lastvisit .= _MB_ONLINEHISTORY_AGO;
