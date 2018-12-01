@@ -18,15 +18,15 @@
  */
 
 if (!defined("XOOPS_ROOT_PATH")) {
-  die("XOOPS root path not defined");
+    die("XOOPS root path not defined");
 }
  
 xoops_loadLanguage('main','onlinehistory');
 
 function b_onlinehistory_checkshow($options) {
-	$time_guest = $options[0] * 60;  // Angabe in Minuten bei Gästen
-	$time_user = $options[1] * 60 * 60 *24 ;  // Angabe in Tagen bei Usern
-	b_onlinehistory_update($time_guest,$time_user);  
+    $time_guest = $options[0] * 60;  // Angabe in Minuten bei Gästen
+    $time_user = $options[1] * 60 * 60 *24 ;  // Angabe in Tagen bei Usern
+    b_onlinehistory_update($time_guest,$time_user);  
 }
 
 function b_onlinehistory_checkedit($options) {
@@ -239,91 +239,91 @@ function b_onlinehistory_edit($options) {
 * Function to update last seen table
 */
 function b_onlinehistory_update($guest_online=300, $user_online=8640000){
-	global $xoopsUser, $xoopsModule ;
+    global $xoopsUser, $xoopsModule ;
       
-	$history_handler = xoops_getModuleHandler('history','onlinehistory');
-	$history_handler->getUpdate($guest_online,$user_online);
+    $history_handler = xoops_getModuleHandler('history','onlinehistory');
+    $history_handler->getUpdate($guest_online,$user_online);
         
-	$ip     = $_SERVER['REMOTE_ADDR']; 
-	$agent  = $_SERVER['HTTP_USER_AGENT'];
+    $ip     = $_SERVER['REMOTE_ADDR']; 
+    $agent  = $_SERVER['HTTP_USER_AGENT'];
     
-	if ($xoopsUser) {
-		$uid = $xoopsUser->getVar("uid");
-		$uname = $xoopsUser->getVar("uname");
-	} else {
-		$uid = 0;
-		$uname = _MA_ONLINEHISTORY_GUEST;
-	}
+    if ($xoopsUser) {
+        $uid = $xoopsUser->getVar("uid");
+        $uname = $xoopsUser->getVar("uname");
+    } else {
+        $uid = 0;
+        $uname = _MA_ONLINEHISTORY_GUEST;
+    }
     
-	$sumaagent = _getAgent($agent);
-	if ($agent == $sumaagent[0] && $uid < 1) 
-	{
-		$uname = "Bot: ".$sumaagent[1];
-		$uid = -1;
-	}
+    $sumaagent = _getAgent($agent);
+    if ($agent == $sumaagent[0] && $uid < 1) 
+    {
+        $uname = "Bot: ".$sumaagent[1];
+        $uid = -1;
+    }
     
-	if ($agent=='') $agent = 'Unknown';
+    if ($agent=='') $agent = 'Unknown';
     
-	$module_handler = xoops_gethandler( 'module' );
-	$config_handler = xoops_gethandler('config');
-	$olModule = $module_handler->getByDirname('onlinehistory');
-	$olConfig = $config_handler->getConfigsByCat(0, $olModule->getVar('mid')); 
-	unset($olModule);
+    $module_handler = xoops_gethandler( 'module' );
+    $config_handler = xoops_gethandler('config');
+    $olModule = $module_handler->getByDirname('onlinehistory');
+    $olConfig = $config_handler->getConfigsByCat(0, $olModule->getVar('mid')); 
+    unset($olModule);
     
-	if ($olConfig['viewsumaonline'] == 1 || $uid > -1) {
-		$moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;
-		$history_handler->getUpdateUser($uid, $uname, $ip, $agent, $moduleid);
-	}  
+    if ($olConfig['viewsumaonline'] == 1 || $uid > -1) {
+        $moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;
+        $history_handler->getUpdateUser($uid, $uname, $ip, $agent, $moduleid);
+    }  
     
-	if ($olConfig['viewmaxonline'] == 1) {
-		$criteria = new CriteriaCompo();
-		$criteria->add(new criteria('online','0','>'));
-		if ($olConfig['viewsumaonline'] == 1) {
-			$criteria->add(new criteria('uid','-1','>'));
-		}
-		$user = $history_handler->getCount($criteria);
-		$history_handler->makemax($user);
-	} 
+    if ($olConfig['viewmaxonline'] == 1) {
+        $criteria = new CriteriaCompo();
+        $criteria->add(new criteria('online','0','>'));
+        if ($olConfig['viewsumaonline'] == 1) {
+            $criteria->add(new criteria('uid','-1','>'));
+        }
+        $user = $history_handler->getCount($criteria);
+        $history_handler->makemax($user);
+    } 
 }
 
 
 function _getAgent($user_agent = "")
 {
-	$xmlurl   = "http://www.user-agents.org/allagents.xml";
-	$xmlfile  = 'history_bots';
+    $xmlurl   = "http://www.user-agents.org/allagents.xml";
+    $xmlfile  = 'history_bots';
 
-	xoops_load('XoopsCache');	
+    xoops_load('XoopsCache');	
 
-	if (!$items = XoopsCache::read($xmlfile)) {
-		$xml = simplexml_load_file($xmlurl);
-		$items = array();
-		foreach ( $xml as $user => $txt)  
+    if (!$items = XoopsCache::read($xmlfile)) {
+        $xml = simplexml_load_file($xmlurl);
+        $items = array();
+        foreach ( $xml as $user => $txt)  
         {  
-			$_items = array();
-			$agent 	= (string)$txt->String;			
-			$desc	= (string)$txt->Description;
-			$_items['agent'] = $agent;
-			$_items['desc']  = $desc;
-			$items[] = $_items;
-			unset($desc);
-			unset($agent);
-			unset($_items);
+            $_items = array();
+            $agent 	= (string)$txt->String;			
+            $desc	= (string)$txt->Description;
+            $_items['agent'] = $agent;
+            $_items['desc']  = $desc;
+            $items[] = $_items;
+            unset($desc);
+            unset($agent);
+            unset($_items);
         } 
     			
-		if (count($items) < 1 || !is_array($items)) return array("", $user_agent);
+        if (count($items) < 1 || !is_array($items)) return array("", $user_agent);
 		
-		XoopsCache::write($xmlfile,$items,array('duration' => '117800'));
-	}
+        XoopsCache::write($xmlfile,$items,array('duration' => '117800'));
+    }
 	
-	foreach($items as $count => $name) {
-		$agent 	= trim(strtolower($user_agent));
-		$string	= trim(strtolower($name['agent']));
-		$pos  = strpos($agent,$string);
-		if ($pos == true)
-		{
-			return array($user_agent, $name['desc']);
-		}
-	}
+    foreach($items as $count => $name) {
+        $agent 	= trim(strtolower($user_agent));
+        $string	= trim(strtolower($name['agent']));
+        $pos  = strpos($agent,$string);
+        if ($pos == true)
+        {
+            return array($user_agent, $name['desc']);
+        }
+    }
     return array("", $user_agent);
 }
 ?>
