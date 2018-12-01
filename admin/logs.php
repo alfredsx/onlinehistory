@@ -24,11 +24,11 @@ xoops_cp_header();
 
 $op = Request::getString('op', Request::getString('op', '', 'POST'), 'GET');
 
-$history_handler = xoops_getModuleHandler('history','onlinehistory');
+$history_handler = xoops_getModuleHandler('history', 'onlinehistory');
 
 switch ($op) {
     case 'del':
-        $confirm     = Request::getInt('confirm', '', 'POST');
+        $confirm = Request::getInt('confirm', '', 'POST');
         if ($confirm) {
             if (!$history_handler->deleteAll()) {
                 redirect_header('logs.php', 4, _AM_ONLINEHISTORY_DELETELOGS_LOGERROR);
@@ -36,7 +36,7 @@ switch ($op) {
             redirect_header('logs.php', 2, sprintf(_AM_ONLINEHISTORY_DELETELOGS_ISDELETED, $name));
         } else {
             //xoops_cp_header();
-            xoops_confirm(array('op' => 'del', 'confirm' => 1), 'logs.php', _AM_ONLINEHISTORY_DELETELOGS );
+            xoops_confirm(array('op' => 'del', 'confirm' => 1), 'logs.php', _AM_ONLINEHISTORY_DELETELOGS);
             xoops_cp_footer();
         }
         break;

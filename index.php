@@ -23,10 +23,10 @@ include $GLOBALS['xoops']->path('header.php');
 
 $start = isset($_GET['start']) ? intval($_GET['start']) : 0;
 
-$history_handler = xoops_getModuleHandler('history','onlinehistory');
+$history_handler = xoops_getModuleHandler('history', 'onlinehistory');
 $criteria = new CriteriaCompo();
-$criteria->add( new criteria('time',time() - (60 * 60 * $xoopsModuleConfig['timelife']) ,'>=') );
-$criteria->add(new criteria('uid','0','>'));
+$criteria->add(new criteria('time', time() - (60 * 60 * $xoopsModuleConfig['timelife']), '>='));
+$criteria->add(new criteria('uid', '0', '>'));
 $history_total = $history_handler->getCount($criteria);
 unset($criteria);
 $limit = ($history_total > $xoopsModuleConfig['viewlimit']) ? $xoopsModuleConfig['viewlimit'] : $history_total;
@@ -45,8 +45,8 @@ $xoopsTpl->assign('onlines', $history);
 $xoopsTpl->assign('breadcrumb', '<li><a href="' . XOOPS_URL . '">' . _YOURHOME . '</a></li> <li class="active">' . $xoopsModule->name().'</li>');
 if ( $history_total > $count ) {
     include_once XOOPS_ROOT_PATH.'/class/pagenav.php';
-	$pagenav = new XoopsPageNav($history_total, $xoopsModuleConfig['viewlimit'], $start, 'start', '');
-	$xoopsTpl->assign('pagenav', $pagenav->renderNav());  	
+    $pagenav = new XoopsPageNav($history_total, $xoopsModuleConfig['viewlimit'], $start, 'start', '');
+    $xoopsTpl->assign('pagenav', $pagenav->renderNav());  	
 } else {
     $xoopsTpl->assign('pagenav', '');
 }
