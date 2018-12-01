@@ -24,3 +24,4 @@ define("_MA_ONLINEHISTORY_IP", "IP-Adresse");
 define("_MA_ONLINEHISTORY_WHO", "befindet sich");
 define("_MA_ONLINEHISTORY_TIMELIFE", "Anzeige der letzten %s Stunden");
 define("_MA_ONLINEHISTORY_GUEST", "Besucher");
+define("_MA_ONLINEHISTORY_ADMIN", ":: Administration ::");

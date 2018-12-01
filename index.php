@@ -17,16 +17,18 @@
  * @version         $Id: index.php 1 2009-11-29 20:00:00 dhcst $
  */
 
-include_once '../../mainfile.php';
+use Xmf\Request;
+ 
+include_once dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoopsOption['template_main'] = "history_index.tpl";
 include $GLOBALS['xoops']->path('header.php');
 
-$start = isset($_GET['start']) ? intval($_GET['start']) : 0;
+$start = Request::getInt('start', 0, 'GET');
 
 $history_handler = xoops_getModuleHandler('history', 'onlinehistory');
 $criteria = new CriteriaCompo();
 $criteria->add(new criteria('time', time() - (60 * 60 * $xoopsModuleConfig['timelife']), '>='));
-$criteria->add(new criteria('uid', '0', '>'));
+$criteria->add(new criteria('online', '0', '>'));
 $history_total = $history_handler->getCount($criteria);
 unset($criteria);
 $limit = ($history_total > $xoopsModuleConfig['viewlimit']) ? $xoopsModuleConfig['viewlimit'] : $history_total;
@@ -34,8 +36,8 @@ $criteria = new CriteriaCompo();
 $criteria->setLimit($limit);
 $criteria->setStart($start);
 $criteria->setOrder('time');
-$criteria->add(new criteria('uid','0','>'));
-$criteria->add(new criteria('time',time() - (60 * 60 * $xoopsModuleConfig['timelife']) ,'>='));
+$criteria->add(new criteria('online', '0', '>'));
+$criteria->add(new criteria('time', time() - (60 * 60 * $xoopsModuleConfig['timelife']) , '>='));
 $criteria->setSort('time');
 $criteria->setOrder('DESC');
 $history = $history_handler->getOnline($criteria);
@@ -46,7 +48,7 @@ $xoopsTpl->assign('breadcrumb', '<li><a href="' . XOOPS_URL . '">' . _YOURHOME .
 if ( $history_total > $count ) {
     include_once XOOPS_ROOT_PATH.'/class/pagenav.php';
     $pagenav = new XoopsPageNav($history_total, $xoopsModuleConfig['viewlimit'], $start, 'start', '');
-    $xoopsTpl->assign('pagenav', $pagenav->renderNav());  	
+    $xoopsTpl->assign('pagenav', $pagenav->renderImageNav());  	
 } else {
     $xoopsTpl->assign('pagenav', '');
 }
