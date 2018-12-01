@@ -93,7 +93,7 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
         list($cuid) = $this->db->fetchRow($result);
         if ($cuid > 0) {
             $sql = "UPDATE " . $this->table . " SET time = " . time() . ", ip='" . $ip . "' ,uagent='" . $agent . "', username='" . $uname . "', module=" . $module . ", online=1 WHERE uid=" . $uid . "";
-            if ($uid < 1)  {
+            if ($uid < 1) {
                 $sql .= " AND ip='" . $ip . "'";
             }
         } else {
