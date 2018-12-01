@@ -82,7 +82,9 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
     
     function getUpdateUser($uid = 0, $uname = '', $ip = '', $agent = '', $module = 0, $suma = 1) 
     {
-        if ($uid < -1 || $ip == '') return false;        
+        if ($uid < -1 || $ip == '') {
+            return false;
+        }
         $sql = "SELECT count(uid) as cuid FROM " . $this->table . " WHERE uid=" . $uid;
         if ($uid < 1) {
             $sql .= " AND ip='" . $ip . "'";
@@ -92,16 +94,16 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
         if ($cuid > 0) {
             $sql = "UPDATE " . $this->table . " SET time = " . time() . ", ip='" . $ip . "' ,uagent='" . $agent . "', username='" . $uname . "', module=" . $module . ", online=1 WHERE uid=" . $uid . "";
             if ($uid < 1)  {
-				$sql .= " AND ip='" . $ip . "'";
-			}
+                $sql .= " AND ip='" . $ip . "'";
+            }
         } else {
             $sql = "INSERT INTO " . $this->table . " (uid, username, time, ip, online, uagent, module) VALUES (" . $uid . ", '" . $uname . "', " . time() . ", '" . $ip . "', 1, '" . $agent . "', " . $module . ")";
         }
-		$this->db->queryF($sql);
-		if ($suma == 0) {
-			$sql = "DELETE FROM " . $this->table . " WHERE uid<0";
-			$this->db->queryF($sql);
-		}
+        $this->db->queryF($sql);
+        if ($suma == 0) {
+            $sql = "DELETE FROM " . $this->table . " WHERE uid<0";
+            $this->db->queryF($sql);
+        }
         return true;
     }
     
