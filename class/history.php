@@ -80,7 +80,7 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
         return true;
     }
     
-    function getUpdateUser($uid = 0, $uname = '', $ip = '', $agent = '', $module = 0, $suma = 1) 
+    public function getUpdateUser($uid = 0, $uname = '', $ip = '', $agent = '', $module = 0, $suma = 1) 
     {
         if ($uid < -1 || $ip == '') {
             return false;

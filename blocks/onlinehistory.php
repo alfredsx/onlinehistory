@@ -216,7 +216,7 @@ function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
       
     $history_handler = xoops_getModuleHandler('history', 'onlinehistory');
     $history_handler->getUpdate($guest_online, $user_online);
-        
+    
     $ip     = $_SERVER['REMOTE_ADDR']; 
     $agent  = $_SERVER['HTTP_USER_AGENT'];
     
@@ -245,9 +245,11 @@ function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
     $olConfig = $config_handler->getConfigsByCat(0, $olModule->getVar('mid')); 
     unset($olModule);
 	
-    if ($olConfig['viewsumaonline'] == 1 || $uid > -1) {
-        $moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;
-        $history_handler->getUpdateUser($uid, $uname, $ip, $agent, $moduleid, $olConfig['viewsumaonline']);
+	$moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;
+	$suma = intval($olConfig['viewsumaonline']);
+        
+    if ($suma == 1 || $uid > -1) {
+        $history_handler->getUpdateUser($uid, $uname, $ip, $agent, $moduleid, $suma);
     }  
     
     if ($olConfig['viewmaxonline'] == true) {
