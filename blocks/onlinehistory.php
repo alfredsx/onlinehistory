@@ -156,34 +156,31 @@ function b_onlinehistory_show($options) {
 
 function b_onlinehistory_create($date){
 	$realtime = time() - $date;
-	$lastvisit ="";
-	$days = "";
-	$hours = "";
-	$mins = "";
-	//echo $realtime;
+	$lastvisit = "";
+	$days = $hours = $mins = 0;
+	
 	// how many days ago?
 	if ( $realtime >= 86400 ) { // if it's been more than a day
-		$days = floor($realtime / (86400));
-		//$realtime -= (86400 * $days);
-		$realtime = 0;
-	}
+		$days = floor($realtime / (86400));		
+	} else {
 	
-	// how many hours ago?
-	if ( $realtime >= (3600) ) {
-		$hours = floor($realtime / (3600));
-		$realtime -= (3600*$hours);
-	}
+		// how many hours ago?
+		if ( $realtime >= (3600) ) {
+			$hours = floor($realtime / (3600));
+			$realtime -= (3600*$hours);
+		}
 	
-	// how many minutes ago?
-	if ( $realtime >= 60 ) {
-		$mins = floor($realtime / 60);
-		$realtime -= (60*$mins);				
-	}
+		// how many minutes ago?
+		if ( $realtime >= 60 ) {
+			$mins = floor($realtime / 60);
+			$realtime -= (60*$mins);				
+		}
 
-	// just a little precation, although I don't *think* mins will ever be 60...
-	if ( $mins == 60 ) {
-		$mins = 0;
-		$hours += 1;
+		// just a little precation, although I don't *think* mins will ever be 60...
+		if ( $mins == 60 ) {
+			$mins = 0;
+			$hours += 1;
+		}
 	}
 	if ( $days > 1 ) {
 		$lastvisit .= sprintf(_MB_ONLINEHISTORY_DAYS,$days);
