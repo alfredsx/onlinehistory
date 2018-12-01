@@ -17,7 +17,7 @@
  * @version         $Id: main.php 1 2009-11-29 20:00:00 dhcst $
  */
  
-define("_AM_ONLINEHISTORY_FORM","Log der User");
+define("_AM_ONLINEHISTORY_FORM", "Log der User");
 define("_AM_ONLINEHISTORY_TIME", "Zeit");
 define("_AM_ONLINEHISTORY_IP", "IP");
 define("_AM_ONLINEHISTORY_NAME", "User-Agent");

@@ -20,7 +20,7 @@
 defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
 /**
-  *
+ *
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  */
@@ -34,11 +34,11 @@ class OnlinehistoryCorePreload extends XoopsPreloadItem
                 $GLOBALS['xoopsDB']->queryF($sql);
             }
         } elseif (isset($_REQUEST['op']) && $_REQUEST['op'] =='login') {
-			if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser']->getVar('uid') > 0) {
+            if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser']->getVar('uid') > 0) {
                 $sql = "UPDATE ".$GLOBALS['xoopsDB']->prefix("lastseen")." SET time = " . time() . ", online=1 WHERE uid=".$GLOBALS['xoopsUser']->getVar('uid')."";
                 $GLOBALS['xoopsDB']->queryF($sql);
             }
-		}
+        }
     }    
 }
 ?>
