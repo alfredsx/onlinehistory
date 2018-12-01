@@ -162,58 +162,24 @@ function b_onlinehistory_show($options) {
 }
 
 function b_onlinehistory_create($date) {
-    $realtime = time() - $date;
-    $lastvisit = "";
-    $days = $hours = $mins = 0;
+    $akttime = time();
+	$realtime = $akttime - $date;
+	
+	$aktDate = new DateTime(date("d.m.Y H:i:s", $akttime));
+	$oldDate = new DateTime(date("d.m.Y H:i:s", $date));
+	$interval = $aktDate->diff($oldDate);
 	
     // how many days ago?
     if ($realtime >= 86400) { // if it's been more than a day
-        $days = floor($realtime / (86400));		
-    } else {
-	
-        // how many hours ago?
-        if ($realtime >= (3600)) {
-            $hours = floor($realtime / (3600));
-            $realtime -= (3600 * $hours);
-        }
-	
-        // how many minutes ago?
-        if ($realtime >= 60) {
-            $mins = floor($realtime / 60);
-            $realtime -= (60 * $mins);				
-        }
-
-        // just a little precation, although I don't *think* mins will ever be 60...
-        if ($mins == 60) {
-            $mins = 0;
-            $hours += 1;
-        }
+        $differenz = $interval->format('%d ' . _MB_ONLINEHISTORY_DAYS);	
+    } else if ($realtime >= (3600)) {
+        $differenz = $interval->format('%h '. _MB_ONLINEHISTORY_HRS . ', %i ' . _MB_ONLINEHISTORY_MINS);
+	} else {
+		$differenz = $interval->format('%i ' . _MB_ONLINEHISTORY_MINS);
     }
-    if ($days > 1) {
-        $lastvisit .= sprintf(_MB_ONLINEHISTORY_DAYS, $days);
-    } elseif ($days == 1) {
-        $lastvisit .= _MB_ONLINEHISTORY_1DAY;
-    }
-    if ($hours > 0) {
-        if ($hours == 1) {
-            $lastvisit .= _MB_ONLINEHISTORY_1HR;
-        } else {
-            $lastvisit .= sprintf(_MB_ONLINEHISTORY_HRS, $hours);
-        }
-    }
-    if ($mins > 0) {
-        if ($mins == 1) {
-            $lastvisit .= _MB_ONLINEHISTORY_1MIN;
-        } else {
-            $lastvisit .= sprintf(_MB_ONLINEHISTORY_MINS, $mins);
-        }
-    }
-    if (!$days && !$hours && !$mins) {
-        $lastvisit .= sprintf(_MB_ONLINEHISTORY_SCNDS, $realtime);
-    }
-			
-    $lastvisit .= _MB_ONLINEHISTORY_AGO;
-    return $lastvisit;
+	$differenz = $differenz . " " . _MB_ONLINEHISTORY_AGO;
+    
+    return $differenz;
 }
 
 function b_onlinehistory_edit($options) {
@@ -337,4 +303,3 @@ function _getAgent($user_agent = "")
     }
     return array("", $user_agent);
 }
-?>
