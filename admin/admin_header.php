@@ -25,7 +25,6 @@ global $xoopsModule;
 
 $thisModuleDir = $GLOBALS['xoopsModule']->getVar('dirname');
 
-
 // Load language files
 xoops_loadLanguage('admin', $thisModuleDir);
 xoops_loadLanguage('modinfo', $thisModuleDir);

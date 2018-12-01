@@ -41,3 +41,4 @@ define('_MI_ONLINEHISTORY_DISPLAYMAXUSER_DESC','');
 // v 1.3
 define('_MI_ONLINEHISTORY_HOME', 'Indes');
 define('_MI_ONLINEHISTORY_ABOUT', 'Über');
+define('_MI_ONLINEHISTORY_LOGS', 'Logs');

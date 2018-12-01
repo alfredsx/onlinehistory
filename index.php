@@ -18,7 +18,7 @@
  */
 
 include_once '../../mainfile.php';
-$xoopsOption['template_main'] = "history_index.html";
+$xoopsOption['template_main'] = "history_index.tpl";
 include $GLOBALS['xoops']->path('header.php');
 
 $start = isset($_GET['start']) ? intval($_GET['start']) : 0;

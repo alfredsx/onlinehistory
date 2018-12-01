@@ -19,9 +19,8 @@
  
 class OnlinehistoryHistory extends XoopsObject
 {
-    function __construct()
+    public function __construct()
     {
-      //$this->XoopsObject();
       $this->initVar('uid', XOBJ_DTYPE_INT, null, false);
       $this->initVar('username', XOBJ_DTYPE_TXTBOX, null, true, 255);
       $this->initVar('time', XOBJ_DTYPE_INT, null, true);
@@ -31,10 +30,6 @@ class OnlinehistoryHistory extends XoopsObject
       $this->initVar('module', XOBJ_DTYPE_INT, null, true);
     }
     
-    function OnlinehistoryHistory()
-    {
-      $this->__construct();
-    }
 }
 
 class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
@@ -43,82 +38,78 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
     
     public function __construct(XoopsDatabase $db) 
     {
-      $this->logdatei = XOOPS_UPLOAD_PATH. "/onlinehistory_" . md5(XOOPS_URL . XOOPS_ROOT_PATH .$GLOBALS['xoopsDB']->prefix("") ) . ".txt";
-      parent::__construct($db, 'lastseen', 'OnlinehistoryHistory', 'uid', 'username');
+		$this->logdatei = XOOPS_UPLOAD_PATH. "/onlinehistory_" . md5(XOOPS_URL . XOOPS_ROOT_PATH .$GLOBALS['xoopsDB']->prefix("") ) . ".txt";
+		parent::__construct($db, 'lastseen', 'OnlinehistoryHistory', 'uid', 'username');
     }
+        
     
-    public function Onlinehistory() {
-        $this->__construct();
-    }
-    
-    
-    function makemax($wert=0) {  
-      $oldmax = $this->readmax();
-      $oldmax = intval($oldmax[0]);
-      if ($oldmax<intval($wert)) {
-        $LogText = $wert."|".time()."\n";
-        if ($fp = fopen($this->logdatei, 'w')) {
-          fputs($fp, $LogText);
-          fclose($fp);
-        }        
-      }
+    function makemax($wert=0) 
+	{  
+		$oldmax = $this->readmax();
+		$oldmax = intval($oldmax[0]);
+		if ($oldmax<intval($wert)) {
+			$LogText = $wert."|".time()."\n";
+			if ($fp = fopen($this->logdatei, 'w')) {
+				fputs($fp, $LogText);
+				fclose($fp);
+			}        
+		}
     }	
     
-    function readmax() {
-      $oldmax = 0;
-      if (file_exists($this->logdatei)) {
-        if ($fp = fopen($this->logdatei, 'r')) {
-          while(!feof($fp)) { $oldmax .= fgets($fp, 4096); }
-          fclose($fp);
-        }
-      }
-      $oldmax = explode("|",$oldmax);
-      return array(intval($oldmax[0]),$oldmax[1]);
+    function readmax() 
+	{
+		$oldmax = 0;
+		if (file_exists($this->logdatei)) {
+			if ($fp = fopen($this->logdatei, 'r')) {
+				while(!feof($fp)) { $oldmax .= fgets($fp, 4096); }
+				fclose($fp);
+			}
+		}
+		$oldmax = explode("|",$oldmax);
+		return array(intval($oldmax[0]),$oldmax[1]);
     }
     
     function getUpdate($guest = 0, $user=0)
     {
-      $past       = time() - $guest; // anonymous records are deleted after 10 minutes
-      $userpast   = time() - $user;  // user records idle for the past 100 days are deleted
-      $sql = "DELETE FROM " . $this->table . " WHERE (uid<1 AND time<=".$past.") OR (uid>0 AND time<=".$userpast.")";
-      $this->db->queryF($sql);
-      $sql = "UPDATE " . $this->table . " SET online=0 WHERE uid>0 AND time< ".$past."";
-      $this->db->queryF($sql);
-      return true;
+		$past       = time() - $guest; // anonymous records are deleted after 10 minutes
+		$userpast   = time() - $user;  // user records idle for the past 100 days are deleted
+		$sql = "DELETE FROM " . $this->table . " WHERE (uid<1 AND time<=".$past.") OR (uid>0 AND time<=".$userpast.")";
+		$this->db->queryF($sql);
+		$sql = "UPDATE " . $this->table . " SET online=0 WHERE uid>0 AND time< ".$past."";
+		$this->db->queryF($sql);
+		return true;
     }
     
     function getUpdateUser($uid=0, $uname='', $ip='', $agent='', $module=0) 
     {
-      if ($uid < -1  || $ip == '') return false;        
-      $sql = "SELECT count(uid) as cuid FROM ".$this->table." WHERE uid=".$uid;
-      if ( $uid < 1 ) {
-        $sql .= " AND ip='".$ip."'";
-      }
-      $result = $this->db->query($sql);
-      list($cuid) = $this->db->fetchRow($result);
-      if ( $cuid > 0) {
-        $sql = "UPDATE ".$this->table." SET time = " . time() . ", ip='".$ip."' ,uagent='".$agent."', username='".$uname."', module=".$module.", online=1 WHERE uid=".$uid."";
-        if($uid < 1)  {
-          $sql .= " AND ip='".$ip."'";
-        }
+		if ($uid < -1  || $ip == '') return false;        
+		$sql = "SELECT count(uid) as cuid FROM ".$this->table." WHERE uid=".$uid;
+		if ( $uid < 1 ) {
+			$sql .= " AND ip='".$ip."'";
+		}
+		$result = $this->db->query($sql);
+		list($cuid) = $this->db->fetchRow($result);
+		if ( $cuid > 0) {
+			$sql = "UPDATE ".$this->table." SET time = " . time() . ", ip='".$ip."' ,uagent='".$agent."', username='".$uname."', module=".$module.", online=1 WHERE uid=".$uid."";
+			if($uid < 1)  $sql .= " AND ip='".$ip."'";
 		$this->db->queryF($sql);
-      } else {
-        $sql = "INSERT INTO ".$this->table." (uid, username, time, ip, online, uagent, module) VALUES (".$uid.", '".$uname."', ".time().", '".$ip."', 1, '".$agent."', ".$module.")";
-		$this->db->queryF($sql);
-      }
-      return true;
+		} else {
+			$sql = "INSERT INTO ".$this->table." (uid, username, time, ip, online, uagent, module) VALUES (".$uid.", '".$uname."', ".time().", '".$ip."', 1, '".$agent."', ".$module.")";
+			$this->db->queryF($sql);
+		}
+		return true;
     }
     
     
     function getCount(CriteriaElement $crit = NULL)
     {
-      $sql = 'SELECT COUNT(uid) as count FROM ' . $this->table;
-      if (is_object($crit) && is_subclass_of($crit, 'criteriaelement')) {
-        $sql .= ' ' . $crit->renderWhere();
-      }
-      if (!$result = $this->db->query($sql)) return false;
-      list ($ret) = $this->db->fetchRow($result);
-      return $ret;
+		$sql = 'SELECT COUNT(uid) as count FROM ' . $this->table;
+		if (is_object($crit) && is_subclass_of($crit, 'criteriaelement')) {
+			$sql .= ' ' . $crit->renderWhere();
+		}
+		if (!$result = $this->db->query($sql)) return false;
+		list ($ret) = $this->db->fetchRow($result);
+		return $ret;
     }
     
        
@@ -137,6 +128,7 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
 			$utime          = $ol->getVar('time');
 			$l['time']      = formatTimestamp($utime, 'l');
 			$l['online']    = $ol->getVar('online');
+			$l['uagent']    = $ol->getVar('uagent');
 			$l['modul']     = (!empty($modules[$ol->getVar('module')]) ) ? $modules[$ol->getVar('module')] : '';
 			$l['online'] = $ol->getVar('online');
 			$ret[]=$l;

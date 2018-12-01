@@ -261,7 +261,7 @@ function b_onlinehistory_update($guest_online=300, $user_online=8640000){
 	$sumaagent = _getAgent($agent);
 	if ($agent == $sumaagent[0] && $uid < 1) 
 	{
-		$uname = "Bot: ".$sumaagent[0];
+		$uname = "Bot: ".$sumaagent[1];
 		$uid = -1;
 	}
     
@@ -303,7 +303,7 @@ function _getAgent($user_agent = "")
 		foreach ( $xml as $user => $txt)  
         {  
 			$_items = array();
-			$agent 	= (string)$txt->String;
+			$agent 	= (string)$txt->String;			
 			$desc	= (string)$txt->Description;
 			$_items['agent'] = $agent;
 			$_items['desc']  = $desc;
@@ -321,9 +321,8 @@ function _getAgent($user_agent = "")
 	foreach($items as $count => $name) {
 		$agent 	= trim(strtolower($user_agent));
 		$string	= trim(strtolower($name['agent']));
-		//$pos 	= strpos($agent,$string);
-		$pos = strpos($string, "bot");
-		if ($pos !== false)
+		$pos  = strpos($agent,$string);
+		if ($pos == true)
 		{
 			return array($user_agent, $name['desc']);
 		}
