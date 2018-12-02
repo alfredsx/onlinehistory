@@ -51,7 +51,7 @@ switch ($op) {
         $history_total = $history_handler->getCount();
         $limit = ($history_total > $xoopsModuleConfig['viewlimit']) ? $xoopsModuleConfig['viewlimit'] : $history_total;
 
-        $start = XoopsRequest::getInt('start', 0);
+        $start = Request::getInt('start', 0, 'GET');
 
         $criteria = new CriteriaCompo();
         $criteria->setLimit($limit);
