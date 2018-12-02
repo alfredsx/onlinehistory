@@ -163,21 +163,21 @@ function b_onlinehistory_show($options) {
 
 function b_onlinehistory_create($date) {
     $akttime = time();
-	$realtime = $akttime - $date;
+    $realtime = $akttime - $date;
 	
-	$aktDate = new DateTime(date("d.m.Y H:i:s", $akttime));
-	$oldDate = new DateTime(date("d.m.Y H:i:s", $date));
-	$interval = $aktDate->diff($oldDate);
+    $aktDate = new DateTime(date("d.m.Y H:i:s", $akttime));
+    $oldDate = new DateTime(date("d.m.Y H:i:s", $date));
+    $interval = $aktDate->diff($oldDate);
 	
     // how many days ago?
     if ($realtime >= 86400) { // if it's been more than a day
         $differenz = $interval->format('%d ' . _MB_ONLINEHISTORY_DAYS);	
-    } else if ($realtime >= (3600)) {
+    } else if ($realtime >= 3600) {
         $differenz = $interval->format('%h '. _MB_ONLINEHISTORY_HRS . ', %i ' . _MB_ONLINEHISTORY_MINS);
-	} else {
-		$differenz = $interval->format('%i ' . _MB_ONLINEHISTORY_MINS);
+    } else {
+        $differenz = $interval->format('%i ' . _MB_ONLINEHISTORY_MINS);
     }
-	$differenz = $differenz . " " . _MB_ONLINEHISTORY_AGO;
+    $differenz = $differenz . " " . _MB_ONLINEHISTORY_AGO;
     
     return $differenz;
 }
@@ -245,8 +245,8 @@ function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
     $olConfig = $config_handler->getConfigsByCat(0, $olModule->getVar('mid')); 
     unset($olModule);
 	
-	$moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;
-	$suma = intval($olConfig['viewsumaonline']);
+    $moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;
+    $suma = intval($olConfig['viewsumaonline']);
         
     if ($suma == 1 || $uid > -1) {
         $history_handler->getUpdateUser($uid, $uname, $ip, $agent, $moduleid, $suma);
