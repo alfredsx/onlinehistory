@@ -54,4 +54,3 @@ define("_MB_ONLINEHISTORY_TIMEUSER", "Zeit in der User aus der History gelöscht
 define("_MB_ONLINEHISTORY_UNAME", "Richtiger Name statt Username");
 define("_MB_ONLINEHISTORY_ALLUSER", "Es sind %s Besucher insgesamt online.");
 define("_MB_ONLINEHISTORY_MAXUSER", "Am %s waren mit %s Besuchern die meisten online.");
-?>

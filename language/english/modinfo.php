@@ -37,4 +37,8 @@ define('_MI_ONLINEHISTORY_DISPLAYSUMA', 'Display of search engines or bots');
 define('_MI_ONLINEHISTORY_DISPLAYSUMA_DESC', '');
 define('_MI_ONLINEHISTORY_DISPLAYMAXUSER', 'Display of max. Users were online at the same time');
 define('_MI_ONLINEHISTORY_DISPLAYMAXUSER_DESC', '');
-?>
+
+// v 1.3
+define('_MI_ONLINEHISTORY_HOME', 'Indes');
+define('_MI_ONLINEHISTORY_ABOUT', 'About');
+define('_MI_ONLINEHISTORY_LOGS', 'Logs');

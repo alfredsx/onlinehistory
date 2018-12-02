@@ -37,14 +37,10 @@ define("_MB_ONLINEHISTORY_MORE", "more...");
 define("_MB_ONLINEHISTORY_URAU", "You are an anonymous user.");
 define("_MB_ONLINEHISTORY_RNOW", "Register Now!");
 define("_MB_ONLINEHISTORY_CURU", "Current Online Registered Users:");
-define("_MB_ONLINEHISTORY_DAYS", "%s days");
-define("_MB_ONLINEHISTORY_1DAY", "1 day");
-define("_MB_ONLINEHISTORY_HRS", " %s hours");
-define("_MB_ONLINEHISTORY_1HR", " 1 hour");
-define("_MB_ONLINEHISTORY_MINS", " %s minutes");
-define("_MB_ONLINEHISTORY_1MIN", " 1 minute");
-define("_MB_ONLINEHISTORY_SCNDS", " %s seconds");
-define("_MB_ONLINEHISTORY_AGO", " ago");
+define("_MB_ONLINEHISTORY_DAYS", "day(s)");
+define("_MB_ONLINEHISTORY_HRS", "hour(s)");
+define("_MB_ONLINEHISTORY_MINS", "minute(s)");
+define("_MB_ONLINEHISTORY_AGO", "ago");
 define("_MB_ONLINEHISTORY_MDAYS", "Max number of days");
 define("_MB_ONLINEHISTORY_MMEM", "Max number of members");
 define("_MB_ONLINEHISTORY_DAYS2", "days");
@@ -57,4 +53,4 @@ define("_MB_ONLINEHISTORY_TIMEUSER", "time to delete members");
 
 define("_MB_ONLINEHISTORY_UNAME", "Name instead of username");
 define("_MB_ONLINEHISTORY_ALLUSER", "There are %s total visitors online.");
-?>
+define("_MB_ONLINEHISTORY_MAXUSER", "On %s most people were online with %s visitors.");                                                                                       

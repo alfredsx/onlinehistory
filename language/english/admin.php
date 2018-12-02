@@ -17,11 +17,13 @@
  * @version         $Id: main.php 1 2009-11-29 20:00:00 dhcst $
  */
  
-define("_MA_ONLINEHISTORY_NAME", "Online Historie");
-define("_MA_ONLINEHISTORY_USERNAME", "Username");
-define("_MA_ONLINEHISTORY_DATE", "Date");
-define("_MA_ONLINEHISTORY_IP", "IP-Adresse");
-define("_MA_ONLINEHISTORY_WHO", "is in");
-define("_MA_ONLINEHISTORY_TIMELIFE", "Show the last %s hours");
-define("_MA_ONLINEHISTORY_GUEST", "Guest");
-define("_MA_ONLINEHISTORY_ADMIN", ":: Administration ::");
+define("_AM_ONLINEHISTORY_FORM", "Log the User");
+define("_AM_ONLINEHISTORY_TIME", "time");
+define("_AM_ONLINEHISTORY_IP", "IP");
+define("_AM_ONLINEHISTORY_NAME", "User-Agent");
+define("_AM_ONLINEHISTORY_UNAME", "User-Name");
+define("_AM_ONLINEHISTORY_ACTION", "Action");
+define("_AM_ONLINEHISTORY_NOENTRY", "no entries available");
+define("_AM_ONLINEHISTORY_DELETELOGS", "Should the complete logs be deleted? <br /> <br />");
+define("_AM_ONLINEHISTORY_DELETELOGS_ISDELETED", "Logfile successfully emptied.");
+define("_AM_ONLINEHISTORY_DELETELOGS_LOGERROR", "An error occurred while deleting the log file!");
