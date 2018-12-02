@@ -45,6 +45,6 @@
 <{/if}>
 
 <div align="right">
-	<small><a href='https://www.simple-xoops.de' target="_blank">SIMPLE-XOOPS</a></small>
+	<small><a href='https://www.simple-xoops.de' target="_blank"><img src="<{xoAppUrl}>modules/onlinehistory/assets/images/sx-logo.png" alt="SIMPLE-XOOPS" title="SIMPLE-XOOPS"></img></a></small>
 </div>
 <br class="clear"/>

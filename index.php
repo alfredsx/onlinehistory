@@ -44,7 +44,9 @@ $history = $history_handler->getOnline($criteria);
 $count = count($history);
 $xoopsTpl->assign('count', $count);
 $xoopsTpl->assign('onlines', $history);
-$xoopsTpl->assign('breadcrumb', '<li><a href="' . XOOPS_URL . '">' . _YOURHOME . '</a></li> <li class="active">' . $xoopsModule->name() . '</li>');
+$xoBreadcrumbs   = array();
+$breadcrumb ='<a href="' . XOOPS_URL . '">' . _YOURHOME . '</a>  &raquo; ' . $xoopsModule->name();
+$xoopsTpl->assign('breadcrumb', $breadcrumb);
 if ($history_total > $count) {
     include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
     $pagenav = new XoopsPageNav($history_total, $xoopsModuleConfig['viewlimit'], $start, 'start', '');
