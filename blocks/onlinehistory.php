@@ -140,7 +140,7 @@ function b_onlinehistory_show($options) {
             $block['useronline'] .= "";
         }
     } 
-    $block['lang_more'] = "<a href=\"javascript:openWithSelfMain('" . XOOPS_URL . "/modules/" . basename(dirname(dirname(__FILE__))) . "/blocks/showuser.php?action=showpopups&amp;type=online','Online',450,490);\">" . _MB_ONLINEHISTORY_MORE . "</a><br />";
+    $block['lang_more'] = "<a href=\"javascript:openWithSelfMain('" . XOOPS_URL . "/modules/" . basename(dirname(__DIR__)) . "/blocks/showuser.php?action=showpopups&amp;type=online','Online',450,490);\">" . _MB_ONLINEHISTORY_MORE . "</a><br />";
     $block['content'] = "";
     if ($options[0] == 1) {
         $usonly = array();
