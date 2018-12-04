@@ -76,10 +76,10 @@ function b_onlinehistory_show($options) {
     
     $result = $xoopsDB->query("SELECT uid FROM " . $xoopsDB->prefix("lastseen") . " WHERE online=1 ORDER BY uid DESC");
     while ($r = $xoopsDB->fetchArray($result)) {
-        if (intval($r['uid']) > 0) {
+        if ((int)$r['uid'] > 0) {
             $member_online_num++;            
         } else {
-            if (intval($r['uid']) < 0) {
+            if ((int)$r['uid'] < 0) {
                 if ($olConfig['viewsumaonline'] == 1) {
                     $online_spider++;
                 } 
@@ -246,7 +246,7 @@ function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
     unset($olModule);
 	
     $moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;
-    $suma = intval($olConfig['viewsumaonline']);
+    $suma = (int)$olConfig['viewsumaonline'];
         
     if ($suma == 1 || $uid > -1) {
         $history_handler->getUpdateUser($uid, $uname, $ip, $agent, $moduleid, $suma);

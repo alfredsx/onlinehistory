@@ -46,8 +46,8 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
     function makemax($wert = 0) 
     {  
         $oldmax = $this->readmax();
-        $oldmax = intval($oldmax[0]);
-        if ($oldmax < intval($wert)) {
+        $oldmax = (int)$oldmax[0];
+        if ($oldmax < (int)$wert) {
             $LogText = $wert . "|" . time() . "\n";
             if ($fp = fopen($this->logdatei, 'w')) {
                 fputs($fp, $LogText);
@@ -66,7 +66,7 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
             }
         }
         $oldmax = explode("|", $oldmax);
-        return array(intval($oldmax[0]), $oldmax[1]);
+        return array((int)$oldmax[0], $oldmax[1]);
     }
     
     function getUpdate($guest = 0, $user = 0)
