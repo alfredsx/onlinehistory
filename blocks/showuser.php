@@ -103,7 +103,7 @@ if ($action == "showpopups") {
                 $xoopsTpl->assign('pagnav', $nav->renderNav());
             }
             
-            $xoopsTpl->display('db:history_pop.html');
+            $xoopsTpl->display('db:history_pop.tpl');
             break;   
                    
         default:
