@@ -20,7 +20,7 @@
 use Xmf\Request;
  
 include_once dirname(dirname(__DIR__)) . '/mainfile.php';
-$xoopsOption['template_main'] = "history_index.tpl";
+$xoopsOption['template_main'] = 'history_index.tpl';
 include $GLOBALS['xoops']->path('header.php');
 
 $start = Request::getInt('start', 0, 'GET');

@@ -69,8 +69,8 @@ switch ($op) {
                 <th class='center width10'>" . _AM_ONLINEHISTORY_IP . "</th>
 				<th class='center width23'>" . _AM_ONLINEHISTORY_UNAME . "</th>
                 <th class='center'>" . _AM_ONLINEHISTORY_NAME . "</th>
-                <th class='center width10'>" . _AM_ONLINEHISTORY_ACTION . "</th>
-            </tr>";
+                <th class='center width10'>" . _AM_ONLINEHISTORY_ACTION . '</th>
+            </tr>';
 
         if ($count > 0) {
             $class = 'odd';
@@ -83,21 +83,21 @@ switch ($op) {
 				<td class='center'>" . $onliner['uagent'] . "</td>
 				<td class='center width10'></td>
 			</tr>";
-            $class = ($class == 'even') ? 'odd' : 'even';
+            $class = ($class === 'even') ? 'odd' : 'even';
         }
     } else {
         echo "  <tr>   
-				<td class='center width100'><br /><br />" . _AM_ONLINEHISTORY_NOENTRY . "</td>
-			</tr>";            
+				<td class='center width100'><br /><br />" . _AM_ONLINEHISTORY_NOENTRY . '</td>
+			</tr>';
     }
     
-    echo "</table><br />";
+    echo '</table><br />';
 
     if ($history_total > $limit) {
-        include_once XOOPS_ROOT_PATH . "/class/pagenav.php";
+        include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
         $pagenav = new XoopsPageNav($history_total, $limit, $start, 'start', '');
         echo $pagenav->renderNav(5);
-        echo "<br />";
+        echo '<br />';
     } 
     break;
 }

@@ -17,13 +17,13 @@
  * @version         $Id: main.php 1 2009-11-29 20:00:00 dhcst $
  */
  
-define("_AM_ONLINEHISTORY_FORM", "Log der User");
-define("_AM_ONLINEHISTORY_TIME", "Zeit");
-define("_AM_ONLINEHISTORY_IP", "IP");
-define("_AM_ONLINEHISTORY_NAME", "User-Agent");
-define("_AM_ONLINEHISTORY_UNAME", "User-Name");
-define("_AM_ONLINEHISTORY_ACTION", "Aktion");
-define("_AM_ONLINEHISTORY_NOENTRY", "keine Einträge vorhanden");
-define("_AM_ONLINEHISTORY_DELETELOGS", "Sollen die kompletten Logs gelöscht werden?<br /><br />");
-define("_AM_ONLINEHISTORY_DELETELOGS_ISDELETED", "Logdatei wurde erfolgreich geleert.");
-define("_AM_ONLINEHISTORY_DELETELOGS_LOGERROR", "Beim Löschen der Logdatei trat ein Fehler auf!");
+define('_AM_ONLINEHISTORY_FORM', 'Log der User');
+define('_AM_ONLINEHISTORY_TIME', 'Zeit');
+define('_AM_ONLINEHISTORY_IP', 'IP');
+define('_AM_ONLINEHISTORY_NAME', 'User-Agent');
+define('_AM_ONLINEHISTORY_UNAME', 'User-Name');
+define('_AM_ONLINEHISTORY_ACTION', 'Aktion');
+define('_AM_ONLINEHISTORY_NOENTRY', 'keine Einträge vorhanden');
+define('_AM_ONLINEHISTORY_DELETELOGS', 'Sollen die kompletten Logs gelöscht werden?<br /><br />');
+define('_AM_ONLINEHISTORY_DELETELOGS_ISDELETED', 'Logdatei wurde erfolgreich geleert.');
+define('_AM_ONLINEHISTORY_DELETELOGS_LOGERROR', 'Beim Löschen der Logdatei trat ein Fehler auf!');

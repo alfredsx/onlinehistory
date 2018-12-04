@@ -17,8 +17,8 @@
  * @version         $Id: onlinehistory.php 1 2009-11-29 20:00:00 dhcst $
  */
 
-if (!defined("XOOPS_ROOT_PATH")) {
-    die("XOOPS root path not defined");
+if (!defined('XOOPS_ROOT_PATH')) {
+    die('XOOPS root path not defined');
 }
  
 xoops_loadLanguage('main', 'onlinehistory');
@@ -40,7 +40,7 @@ function b_onlinehistory_checkedit($options) {
         }
         $form .= "<option value='$timeid'$sel>" . $timezahl . '</option>';
     }
-    $form .= '</select> ' . sprintf(_MINUTES, "") . '<br /><br />';
+    $form .= '</select> ' . sprintf(_MINUTES, '') . '<br /><br />';
     $form .= _MB_ONLINEHISTORY_TIMEUSER . '<br />';
     $form .= "<select name ='options[]'>";
     $usertime = array('1'=>1, '3'=>3, '7' =>7, '14' => 14, '30' =>30, '90' => 90, '365' => 365);
@@ -51,7 +51,7 @@ function b_onlinehistory_checkedit($options) {
         }
         $form .= "<option value='$timeid'$sel>" . $timezahl . '</option>';
     }
-    $form .= '</select> ' . sprintf(_DAYS, "") . '<br /><br />';
+    $form .= '</select> ' . sprintf(_DAYS, '') . '<br /><br />';
     
     return $form;
 }
@@ -65,8 +65,8 @@ function b_onlinehistory_show($options) {
     $member_online_num  = 0;
     $list_online = array();
     $block = array();
-    $module_handler = xoops_gethandler('module');
-    $config_handler = xoops_gethandler('config');
+    $module_handler = xoops_getHandler('module');
+    $config_handler = xoops_getHandler('config');
     $olModule = $module_handler->getByDirname('onlinehistory');
     $olConfig = $config_handler->getConfigsByCat(0, $olModule->getVar('mid')); 
     unset($olModule);    
@@ -74,12 +74,12 @@ function b_onlinehistory_show($options) {
     $block['title'] = _MB_ONLINEHISTORY_TITLE1;
     $myts = MyTextSanitizer::getInstance();
     
-    $result = $xoopsDB->query("SELECT uid FROM " . $xoopsDB->prefix("lastseen") . " WHERE online=1 ORDER BY uid DESC");
+    $result = $xoopsDB->query('SELECT uid FROM ' . $xoopsDB->prefix('lastseen') . ' WHERE online=1 ORDER BY uid DESC');
     while ($r = $xoopsDB->fetchArray($result)) {
-        if (intval($r['uid']) > 0) {
+        if ((int)$r['uid'] > 0) {
             $member_online_num++;            
         } else {
-            if (intval($r['uid']) < 0) {
+            if ((int)$r['uid'] < 0) {
                 if ($olConfig['viewsumaonline'] == 1) {
                     $online_spider++;
                 } 
@@ -95,13 +95,13 @@ function b_onlinehistory_show($options) {
         $block['maxonline'] = sprintf(_MB_ONLINEHISTORY_MAXUSER, formatTimestamp($maxuser[1], 'm'), $maxuser[0]);
     }
     if ($xoopsUser) {
-        $block['user'] = sprintf(_MB_ONLINEHISTORY_URLAS, $xoopsUser->getVar("uname"));
-        $block['avatar'] = "<img src='" . XOOPS_UPLOAD_URL . "/" . $xoopsUser->getVar('user_avatar') . " alt='' />";
+        $block['user'] = sprintf(_MB_ONLINEHISTORY_URLAS, $xoopsUser->getVar('uname'));
+        $block['avatar'] = "<img src='" . XOOPS_UPLOAD_URL . '/' . $xoopsUser->getVar('user_avatar') . " alt='' />";
     } else {
         $block['user'] = _MB_ONLINEHISTORY_URAU;
     }
     $block['online_total'] = sprintf(_MB_ONLINEHISTORY_ALLUSER, $online_history_num);
-    $block['online_users'] = "";
+    $block['online_users'] = '';
     if ($guest_online_num == 1 && $member_online_num == 0) {
             $block['online_users'] .= _MB_ONLINEHISTORY_THERE_ONLYONEGUEST;
     } elseif ($guest_online_num == 0 && $member_online_num == 1) {
@@ -126,32 +126,32 @@ function b_onlinehistory_show($options) {
     $block['useronline'] = '';
     if ($member_online_num > 0) {
         $first = 0;
-        $result = $xoopsDB->query("SELECT l.uid, l.username, u.name FROM " . $xoopsDB->prefix("lastseen") . " as l, " . $xoopsDB->prefix("users") . " as u WHERE l.uid>0 AND l.online=1 AND l.uid=u.uid AND 1=1 LIMIT 10");
+        $result = $xoopsDB->query('SELECT l.uid, l.username, u.name FROM ' . $xoopsDB->prefix('lastseen') . ' as l, ' . $xoopsDB->prefix('users') . ' as u WHERE l.uid>0 AND l.online=1 AND l.uid=u.uid AND 1=1 LIMIT 10');
         while (list($memuid, $memusername, $memname) = $xoopsDB->fetchRow($result)) {
         if ($first != 0) {
-            $block['useronline'] .= ", ";
+            $block['useronline'] .= ', ';
         }
             $list_online[] = $memuid;
             $name = ($options[3] == 1) ? ((trim($memname) != '') ? $memname : $memusername) : $memusername;
-            $block['useronline'] .= "<a href=\"" . XOOPS_URL . "/userinfo.php?uid=$memuid\">" . $myts->htmlSpecialChars($name) . "</a>";
+            $block['useronline'] .= '<a href="' . XOOPS_URL . "/userinfo.php?uid=$memuid\">" . $myts->htmlSpecialChars($name) . '</a>';
             $first = 1;
         }
         if ($first == 1) {
-            $block['useronline'] .= "";
+            $block['useronline'] .= '';
         }
     } 
-    $block['lang_more'] = "<a href=\"javascript:openWithSelfMain('" . XOOPS_URL . "/modules/" . basename(dirname(dirname(__FILE__))) . "/blocks/showuser.php?action=showpopups&amp;type=online','Online',450,490);\">" . _MB_ONLINEHISTORY_MORE . "</a><br />";
-    $block['content'] = "";
+    $block['lang_more'] = "<a href=\"javascript:openWithSelfMain('" . XOOPS_URL . '/modules/' . basename(dirname(__DIR__)) . "/blocks/showuser.php?action=showpopups&amp;type=online','Online',450,490);\">" . _MB_ONLINEHISTORY_MORE . '</a><br />';
+    $block['content'] = '';
     if ($options[0] == 1) {
         $usonly = array();
         $mintime = time() - ($options[1] * 86400);
-        $result = $xoopsDB->query("SELECT l.uid, l.username, l.time, u.name FROM " . $xoopsDB->prefix("lastseen") . " as l, " . $xoopsDB->prefix("users") . " as u WHERE l.uid>0 AND l.time>" . $mintime . " AND l.uid=u.uid AND 1=1 ORDER BY l.time DESC ", $options[2], 0);
+        $result = $xoopsDB->query('SELECT l.uid, l.username, l.time, u.name FROM ' . $xoopsDB->prefix('lastseen') . ' as l, ' . $xoopsDB->prefix('users') . ' as u WHERE l.uid>0 AND l.time>' . $mintime . ' AND l.uid=u.uid AND 1=1 ORDER BY l.time DESC ', $options[2], 0);
         while (list($uid, $uname, $time, $rname) = $xoopsDB->fetchRow($result)) {
             if (!in_array($uid, $list_online)) {
                 $u = array();
                 $lastvisit = b_onlinehistory_create($time);     
                 $name = ($options[3] == 1) ? ((trim($rname) != '') ? $rname : $uname) : $uname;                         
-                $u['user'] = "<a href=\"" . XOOPS_URL . "/userinfo.php?uid=" . $uid . "\">" . $myts->htmlSpecialChars($name) . "</a>";
+                $u['user'] = '<a href="' . XOOPS_URL . '/userinfo.php?uid=' . $uid . '">' . $myts->htmlSpecialChars($name) . '</a>';
                 $u['last'] = $lastvisit;
                 $usonly[] = $u;
             }
@@ -165,8 +165,8 @@ function b_onlinehistory_create($date) {
     $akttime = time();
     $realtime = $akttime - $date;
 	
-    $aktDate = new DateTime(date("d.m.Y H:i:s", $akttime));
-    $oldDate = new DateTime(date("d.m.Y H:i:s", $date));
+    $aktDate = new DateTime(date('d.m.Y H:i:s', $akttime));
+    $oldDate = new DateTime(date('d.m.Y H:i:s', $date));
     $interval = $aktDate->diff($oldDate);
 	
     // how many days ago?
@@ -177,34 +177,34 @@ function b_onlinehistory_create($date) {
     } else {
         $differenz = $interval->format('%i ' . _MB_ONLINEHISTORY_MINS);
     }
-    $differenz = $differenz . " " . _MB_ONLINEHISTORY_AGO;
+    $differenz = $differenz . ' ' . _MB_ONLINEHISTORY_AGO;
     
     return $differenz;
 }
 
 function b_onlinehistory_edit($options) {
-    $form = _MB_ONLINEHISTORY_SLAST . "&nbsp;";
+    $form = _MB_ONLINEHISTORY_SLAST . '&nbsp;';
     if ($options[0] == 1) {
         $chk  = " checked='checked'";
-        $chk1 = "";
+        $chk1 = '';
     } else {
         $chk1 = " checked='checked'";
-        $chk  = "";
+        $chk  = '';
     }
-    $form .= "<input type='radio' name ='options[0]' value='1'" . $chk . " />&nbsp;" . _YES . "";	
-    $form .= "&nbsp;<input type='radio' name ='options[0]' value='0'" . $chk1 . " />" . _NO . "<br />";
+    $form .= "<input type='radio' name ='options[0]' value='1'" . $chk . ' />&nbsp;' . _YES . '';
+    $form .= "&nbsp;<input type='radio' name ='options[0]' value='0'" . $chk1 . ' />' . _NO . '<br />';
     $form .= _MB_ONLINEHISTORY_MDAYS . "&nbsp;<input type='text' name='options[1]' value='" . $options[1] . "' />&nbsp;" . _MB_ONLINEHISTORY_DAYS2 . "\n";
-    $form .= "<br />" . _MB_ONLINEHISTORY_MMEM . "&nbsp;<input type='text' name='options[2]' value='" . $options[2] . "' />&nbsp;" . _MB_ONLINEHISTORY_MEMS . "\n";
-    $form .= "<br />" . _MB_ONLINEHISTORY_UNAME . "&nbsp;";
+    $form .= '<br />' . _MB_ONLINEHISTORY_MMEM . "&nbsp;<input type='text' name='options[2]' value='" . $options[2] . "' />&nbsp;" . _MB_ONLINEHISTORY_MEMS . "\n";
+    $form .= '<br />' . _MB_ONLINEHISTORY_UNAME . '&nbsp;';
     if ($options[3] == 1) {
         $chk  = " checked='checked'";
-        $chk1 = "";
+        $chk1 = '';
     } else {
         $chk1 = " checked='checked'";
-        $chk  = "";
+        $chk  = '';
     }
-    $form .= "<input type='radio' name ='options[3]' value='1'" . $chk . " />&nbsp;" . _YES . "";	
-    $form .= "&nbsp;<input type='radio' name ='options[3]' value='0'" . $chk1 . " />" . _NO . "<br />";
+    $form .= "<input type='radio' name ='options[3]' value='1'" . $chk . ' />&nbsp;' . _YES . '';
+    $form .= "&nbsp;<input type='radio' name ='options[3]' value='0'" . $chk1 . ' />' . _NO . '<br />';
     return $form;
 }
 
@@ -221,8 +221,8 @@ function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
     $agent  = $_SERVER['HTTP_USER_AGENT'];
     
     if ($xoopsUser) {
-        $uid = $xoopsUser->getVar("uid");
-        $uname = $xoopsUser->getVar("uname");
+        $uid = $xoopsUser->getVar('uid');
+        $uname = $xoopsUser->getVar('uname');
     } else {
         $uid = 0;
         $uname = _MA_ONLINEHISTORY_GUEST;
@@ -231,7 +231,7 @@ function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
     $sumaagent = _getAgent($agent);
     if ($agent == $sumaagent[0] && $uid < 1) 
     {
-        $uname = "Bot: " . $sumaagent[1];
+        $uname = 'Bot: ' . $sumaagent[1];
         $uid = -1;
     }
     
@@ -239,14 +239,14 @@ function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
         $agent = 'Unknown';
     }
     
-    $module_handler = xoops_gethandler('module');
-    $config_handler = xoops_gethandler('config');
+    $module_handler = xoops_getHandler('module');
+    $config_handler = xoops_getHandler('config');
     $olModule = $module_handler->getByDirname('onlinehistory');
     $olConfig = $config_handler->getConfigsByCat(0, $olModule->getVar('mid')); 
     unset($olModule);
 	
     $moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;
-    $suma = intval($olConfig['viewsumaonline']);
+    $suma = (int)$olConfig['viewsumaonline'];
         
     if ($suma == 1 || $uid > -1) {
         $history_handler->getUpdateUser($uid, $uname, $ip, $agent, $moduleid, $suma);
@@ -264,9 +264,9 @@ function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
 }
 
 
-function _getAgent($user_agent = "")
+function _getAgent($user_agent = '')
 {
-    $xmlurl   = "http://www.user-agents.org/allagents.xml";
+    $xmlurl   = 'http://www.user-agents.org/allagents.xml';
     $xmlfile  = 'history_bots';
 
     xoops_load('XoopsCache');	
@@ -288,7 +288,7 @@ function _getAgent($user_agent = "")
         } 
     			
         if (count($items) < 1 || !is_array($items)) {
-            return array("", $user_agent);
+            return array('', $user_agent);
         }
 		
         XoopsCache::write($xmlfile, $items, array('duration' => '117800'));
@@ -303,5 +303,5 @@ function _getAgent($user_agent = "")
             return array($user_agent, $name['desc']);
         }
     }
-    return array("", $user_agent);
+    return array('', $user_agent);
 }
