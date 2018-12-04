@@ -17,11 +17,11 @@
  * @version         $Id: main.php 1 2009-11-29 20:00:00 dhcst $
  */
  
-define("_MA_ONLINEHISTORY_NAME", "Online Historie");
-define("_MA_ONLINEHISTORY_USERNAME", "Username");
-define("_MA_ONLINEHISTORY_DATE", "Datum");
-define("_MA_ONLINEHISTORY_IP", "IP-Adresse");
-define("_MA_ONLINEHISTORY_WHO", "befindet sich");
-define("_MA_ONLINEHISTORY_TIMELIFE", "Anzeige der letzten %s Stunden");
-define("_MA_ONLINEHISTORY_GUEST", "Besucher");
-define("_MA_ONLINEHISTORY_ADMIN", ":: Administration ::");
+define('_MA_ONLINEHISTORY_NAME', 'Online Historie');
+define('_MA_ONLINEHISTORY_USERNAME', 'Username');
+define('_MA_ONLINEHISTORY_DATE', 'Datum');
+define('_MA_ONLINEHISTORY_IP', 'IP-Adresse');
+define('_MA_ONLINEHISTORY_WHO', 'befindet sich');
+define('_MA_ONLINEHISTORY_TIMELIFE', 'Anzeige der letzten %s Stunden');
+define('_MA_ONLINEHISTORY_GUEST', 'Besucher');
+define('_MA_ONLINEHISTORY_ADMIN', ':: Administration ::');

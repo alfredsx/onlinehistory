@@ -38,7 +38,7 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
     
     public function __construct(XoopsDatabase $db) 
     {
-        $this->logdatei = XOOPS_UPLOAD_PATH . "/onlinehistory_" . md5(XOOPS_URL . XOOPS_ROOT_PATH . $GLOBALS['xoopsDB']->prefix("")) . ".txt";
+        $this->logdatei = XOOPS_UPLOAD_PATH . '/onlinehistory_' . md5(XOOPS_URL . XOOPS_ROOT_PATH . $GLOBALS['xoopsDB']->prefix('')) . '.txt';
         parent::__construct($db, 'lastseen', 'OnlinehistoryHistory', 'uid', 'username');
     }
         
@@ -48,7 +48,7 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
         $oldmax = $this->readmax();
         $oldmax = (int)$oldmax[0];
         if ($oldmax < (int)$wert) {
-            $LogText = $wert . "|" . time() . "\n";
+            $LogText = $wert . '|' . time() . "\n";
             if ($fp = fopen($this->logdatei, 'w')) {
                 fputs($fp, $LogText);
                 fclose($fp);
@@ -65,7 +65,7 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
                 fclose($fp);
             }
         }
-        $oldmax = explode("|", $oldmax);
+        $oldmax = explode('|', $oldmax);
         return array((int)$oldmax[0], $oldmax[1]);
     }
     
@@ -73,9 +73,9 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
     {
         $past       = time() - $guest; // anonymous records are deleted after 10 minutes
         $userpast   = time() - $user; // user records idle for the past 100 days are deleted
-        $sql = "DELETE FROM " . $this->table . " WHERE (uid<1 AND time<=" . $past . ") OR (uid>0 AND time<=" . $userpast . ")";
+        $sql = 'DELETE FROM ' . $this->table . ' WHERE (uid<1 AND time<=' . $past . ') OR (uid>0 AND time<=' . $userpast . ')';
         $this->db->queryF($sql);
-        $sql = "UPDATE " . $this->table . " SET online=0 WHERE uid>0 AND time< " . $past . "";
+        $sql = 'UPDATE ' . $this->table . ' SET online=0 WHERE uid>0 AND time< ' . $past . '';
         $this->db->queryF($sql);
         return true;
     }
@@ -85,23 +85,23 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
         if ($uid < -1 || $ip == '') {
             return false;
         }
-        $sql = "SELECT count(uid) as cuid FROM " . $this->table . " WHERE uid=" . $uid;
+        $sql = 'SELECT count(uid) as cuid FROM ' . $this->table . ' WHERE uid=' . $uid;
         if ($uid < 1) {
             $sql .= " AND ip='" . $ip . "'";
         }
         $result = $this->db->query($sql);
         list($cuid) = $this->db->fetchRow($result);
         if ($cuid > 0) {
-            $sql = "UPDATE " . $this->table . " SET time = " . time() . ", ip='" . $ip . "' ,uagent='" . $agent . "', username='" . $uname . "', module=" . $module . ", online=1 WHERE uid=" . $uid . "";
+            $sql = 'UPDATE ' . $this->table . ' SET time = ' . time() . ", ip='" . $ip . "' ,uagent='" . $agent . "', username='" . $uname . "', module=" . $module . ', online=1 WHERE uid=' . $uid . '';
             if ($uid < 1) {
                 $sql .= " AND ip='" . $ip . "'";
             }
         } else {
-            $sql = "INSERT INTO " . $this->table . " (uid, username, time, ip, online, uagent, module) VALUES (" . $uid . ", '" . $uname . "', " . time() . ", '" . $ip . "', 1, '" . $agent . "', " . $module . ")";
+            $sql = 'INSERT INTO ' . $this->table . ' (uid, username, time, ip, online, uagent, module) VALUES (' . $uid . ", '" . $uname . "', " . time() . ", '" . $ip . "', 1, '" . $agent . "', " . $module . ')';
         }
         $this->db->queryF($sql);
         if ($suma == 0) {
-            $sql = "DELETE FROM " . $this->table . " WHERE uid<0";
+            $sql = 'DELETE FROM ' . $this->table . ' WHERE uid<0';
             $this->db->queryF($sql);
         }
         return true;

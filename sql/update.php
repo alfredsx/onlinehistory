@@ -22,23 +22,23 @@ function xoops_module_update_onlinehistory(&$module, $oldversion = null)
       
     if ($oldversion < 110) 
     {
-        $sql = "ALTER TABLE " . $GLOBALS['xoopsDB']->prefix("lastseen") . " ADD uagent text NOT NULL";
+        $sql = 'ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix('lastseen') . ' ADD uagent text NOT NULL';
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
         }
     }   
 
     if ($oldversion < 120) 
     {
-        $sql = "ALTER TABLE " . $GLOBALS['xoopsDB']->prefix("lastseen") . " ADD module int(10) NOT NULL DEFAULT '0'";
+        $sql = 'ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix('lastseen') . " ADD module int(10) NOT NULL DEFAULT '0'";
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
         }
-        $sql = "ALTER TABLE " . $GLOBALS['xoopsDB']->prefix("lastseen") . " CHANGE uid uid INT( 10 ) NOT NULL DEFAULT '0'";
+        $sql = 'ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix('lastseen') . " CHANGE uid uid INT( 10 ) NOT NULL DEFAULT '0'";
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
         }
-        $sql = "ALTER TABLE " . $GLOBALS['xoopsDB']->prefix("lastseen") . " CHANGE username username VARCHAR( 255 ) NOT NULL";
+        $sql = 'ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix('lastseen') . ' CHANGE username username VARCHAR( 255 ) NOT NULL';
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
         }
-        $sql = "ALTER TABLE " . $GLOBALS['xoopsDB']->prefix("lastseen") . " CHANGE ip ip VARCHAR( 255 ) NOT NULL";
+        $sql = 'ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix('lastseen') . ' CHANGE ip ip VARCHAR( 255 ) NOT NULL';
         if (!$result = $GLOBALS['xoopsDB']->queryF($sql)) {
         }
     }    

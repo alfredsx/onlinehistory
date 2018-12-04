@@ -17,13 +17,13 @@
  * @version         $Id: main.php 1 2009-11-29 20:00:00 dhcst $
  */
  
-define("_AM_ONLINEHISTORY_FORM", "Log the User");
-define("_AM_ONLINEHISTORY_TIME", "time");
-define("_AM_ONLINEHISTORY_IP", "IP");
-define("_AM_ONLINEHISTORY_NAME", "User-Agent");
-define("_AM_ONLINEHISTORY_UNAME", "User-Name");
-define("_AM_ONLINEHISTORY_ACTION", "Action");
-define("_AM_ONLINEHISTORY_NOENTRY", "no entries available");
-define("_AM_ONLINEHISTORY_DELETELOGS", "Should the complete logs be deleted? <br /> <br />");
-define("_AM_ONLINEHISTORY_DELETELOGS_ISDELETED", "Logfile successfully emptied.");
-define("_AM_ONLINEHISTORY_DELETELOGS_LOGERROR", "An error occurred while deleting the log file!");
+define('_AM_ONLINEHISTORY_FORM', 'Log the User');
+define('_AM_ONLINEHISTORY_TIME', 'time');
+define('_AM_ONLINEHISTORY_IP', 'IP');
+define('_AM_ONLINEHISTORY_NAME', 'User-Agent');
+define('_AM_ONLINEHISTORY_UNAME', 'User-Name');
+define('_AM_ONLINEHISTORY_ACTION', 'Action');
+define('_AM_ONLINEHISTORY_NOENTRY', 'no entries available');
+define('_AM_ONLINEHISTORY_DELETELOGS', 'Should the complete logs be deleted? <br /> <br />');
+define('_AM_ONLINEHISTORY_DELETELOGS_ISDELETED', 'Logfile successfully emptied.');
+define('_AM_ONLINEHISTORY_DELETELOGS_LOGERROR', 'An error occurred while deleting the log file!');

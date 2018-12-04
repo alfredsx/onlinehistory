@@ -17,7 +17,7 @@
  * @version         $Id: showuser.php 1 2009-11-29 20:00:00 dhcst $
  */
 
-include_once("../../../mainfile.php");
+include_once('../../../mainfile.php');
 xoops_loadLanguage('misc');
 xoops_loadLanguage('main', 'onlinehistory');
 
@@ -26,7 +26,7 @@ $action = isset($_POST['action']) ? strip_tags(trim($_POST['action'])) : $action
 $type = isset($_GET['type']) ? strip_tags(trim($_GET['type'])) : '';
 $type = isset($_POST['type']) ? strip_tags(trim($_POST['type'])) : $type;
 
-if ($action === "showpopups") {
+if ($action === 'showpopups') {
     xoops_header();
     $closebutton = 1;    
     switch ($type) {    
@@ -88,7 +88,7 @@ if ($action === "showpopups") {
                 if ($onlines[$i]['uid'] < 1) {
                     $onlineUsers[$i]['user'] = $onlines[$i]['name'];
                 } else {
-                    $onlineUsers[$i]['user'] = "<a href=\"javascript:window.opener.location='" . XOOPS_URL . "/userinfo.php?uid=" . $onlines[$i]['uid'] . "';window.close();\">" . $onlines[$i]['name'] . "</a>";
+                    $onlineUsers[$i]['user'] = "<a href=\"javascript:window.opener.location='" . XOOPS_URL . '/userinfo.php?uid=' . $onlines[$i]['uid'] . "';window.close();\">" . $onlines[$i]['name'] . '</a>';
                 }
                 $onlineUsers[$i]['ip'] = $onlines[$i]['ip'];
                 $onlineUsers[$i]['updated'] = $onlines[$i]['time'];

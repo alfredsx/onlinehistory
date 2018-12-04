@@ -18,20 +18,20 @@
  */
 
 // The name of this module
-define("_MI_ONLINEHISTORY_NAME", "Online Historie");
+define('_MI_ONLINEHISTORY_NAME', 'Online Historie');
 
 // A brief description of this module
-define("_MI_ONLINEHISTORY_DESC", "Zeigt User die gerade Online sind, sowie die Historie der eingeloggten User.");
+define('_MI_ONLINEHISTORY_DESC', 'Zeigt User die gerade Online sind, sowie die Historie der eingeloggten User.');
 
 // Names of blocks for this module (Not all module has blocks)
-define("_MI_ONLINEHISTORY_BNAME1", "Online Historie");
-define("_MI_ONLINEHISTORY_BNAME1_DESC", "zeigt an, wer wann zuletzt online war");
-define("_MI_ONLINEHISTORY_BNAME2", "Online Historie Zählblock");
-define("_MI_ONLINEHISTORY_BNAME2_DESC", "ist unsichtbar, zählt die Besucher");
-define("_MI_ONLINEHISTORY_TIMELIFE", "Anzeige der letzten xx Stunden");
-define("_MI_ONLINEHISTORY_TIMELIFE_DESC", "zeigt an, wer die letzten xx Stunden online war");
-define("_MI_ONLINEHISTORY_VIEWLIMIT", "Anzeige von xx Usern");
-define("_MI_ONLINEHISTORY_VIEWLIMIT_DESC", "zeigt in der Übersicht die genannte Anzahl User je Seite an.");
+define('_MI_ONLINEHISTORY_BNAME1', 'Online Historie');
+define('_MI_ONLINEHISTORY_BNAME1_DESC', 'zeigt an, wer wann zuletzt online war');
+define('_MI_ONLINEHISTORY_BNAME2', 'Online Historie Zählblock');
+define('_MI_ONLINEHISTORY_BNAME2_DESC', 'ist unsichtbar, zählt die Besucher');
+define('_MI_ONLINEHISTORY_TIMELIFE', 'Anzeige der letzten xx Stunden');
+define('_MI_ONLINEHISTORY_TIMELIFE_DESC', 'zeigt an, wer die letzten xx Stunden online war');
+define('_MI_ONLINEHISTORY_VIEWLIMIT', 'Anzeige von xx Usern');
+define('_MI_ONLINEHISTORY_VIEWLIMIT_DESC', 'zeigt in der Übersicht die genannte Anzahl User je Seite an.');
 
 define('_MI_ONLINEHISTORY_DISPLAYSUMA', 'Anzeige von Suchmaschinen oder Bots');
 define('_MI_ONLINEHISTORY_DISPLAYSUMA_DESC', '');
