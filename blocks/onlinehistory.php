@@ -65,8 +65,8 @@ function b_onlinehistory_show($options) {
     $member_online_num  = 0;
     $list_online = array();
     $block = array();
-    $module_handler = xoops_gethandler('module');
-    $config_handler = xoops_gethandler('config');
+    $module_handler = xoops_getHandler('module');
+    $config_handler = xoops_getHandler('config');
     $olModule = $module_handler->getByDirname('onlinehistory');
     $olConfig = $config_handler->getConfigsByCat(0, $olModule->getVar('mid')); 
     unset($olModule);    
@@ -239,8 +239,8 @@ function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
         $agent = 'Unknown';
     }
     
-    $module_handler = xoops_gethandler('module');
-    $config_handler = xoops_gethandler('config');
+    $module_handler = xoops_getHandler('module');
+    $config_handler = xoops_getHandler('config');
     $olModule = $module_handler->getByDirname('onlinehistory');
     $olConfig = $config_handler->getConfigsByCat(0, $olModule->getVar('mid')); 
     unset($olModule);

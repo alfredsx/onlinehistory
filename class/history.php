@@ -125,7 +125,7 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
     function getOnline($criteria = NULL)
     {
         $ret = array();
-        $module_handler = xoops_gethandler('module');
+        $module_handler = xoops_getHandler('module');
         $modules = $module_handler->getList(new Criteria('isactive', 1));
         $online = $this->getObjects($criteria);
         

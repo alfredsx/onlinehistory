@@ -53,13 +53,13 @@ if ($action == "showpopups") {
             $xoopsTpl->debugging_ctrl = 'none';
             $xoopsTpl->caching = 0;
             
-            $module_handler = xoops_gethandler('module');            
+            $module_handler = xoops_getHandler('module');
             $maxlimit = 17;
             $start = isset($_GET['start']) ? intval($_GET['start']) : 0;                  
             
             $history_handler = xoops_getModuleHandler('history', 'onlinehistory'); 
-            $module_handler = xoops_gethandler('module');
-            $config_handler = xoops_gethandler('config');
+            $module_handler = xoops_getHandler('module');
+            $config_handler = xoops_getHandler('config');
             $olModule = $module_handler->getByDirname('onlinehistory');
             $moduleid = $olModule->getVar('mid');
             unset($olModule);
