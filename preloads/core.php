@@ -28,12 +28,12 @@ class OnlinehistoryCorePreload extends XoopsPreloadItem
 {
     function eventCoreUserStart($args)
     {
-        if (isset($_REQUEST['op']) && $_REQUEST['op'] == 'logout') {
+        if (isset($_REQUEST['op']) && $_REQUEST['op'] === 'logout') {
             if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser']->getVar('uid') > 0) {
                 $sql = "UPDATE " . $GLOBALS['xoopsDB']->prefix("lastseen") . " SET time = " . time() . ", online=0 WHERE uid=" . $GLOBALS['xoopsUser']->getVar('uid') . "";
                 $GLOBALS['xoopsDB']->queryF($sql);
             }
-        } elseif (isset($_REQUEST['op']) && $_REQUEST['op'] == 'login') {
+        } elseif (isset($_REQUEST['op']) && $_REQUEST['op'] === 'login') {
             if ($GLOBALS['xoopsUser'] && $GLOBALS['xoopsUser']->getVar('uid') > 0) {
                 $sql = "UPDATE " . $GLOBALS['xoopsDB']->prefix("lastseen") . " SET time = " . time() . ", online=1 WHERE uid=" . $GLOBALS['xoopsUser']->getVar('uid') . "";
                 $GLOBALS['xoopsDB']->queryF($sql);

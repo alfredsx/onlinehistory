@@ -26,7 +26,7 @@ $action = isset($_POST['action']) ? strip_tags(trim($_POST['action'])) : $action
 $type = isset($_GET['type']) ? strip_tags(trim($_GET['type'])) : '';
 $type = isset($_POST['type']) ? strip_tags(trim($_POST['type'])) : $type;
 
-if ($action == "showpopups") {
+if ($action === "showpopups") {
     xoops_header();
     $closebutton = 1;    
     switch ($type) {    

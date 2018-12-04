@@ -83,7 +83,7 @@ switch ($op) {
 				<td class='center'>" . $onliner['uagent'] . "</td>
 				<td class='center width10'></td>
 			</tr>";
-            $class = ($class == 'even') ? 'odd' : 'even';
+            $class = ($class === 'even') ? 'odd' : 'even';
         }
     } else {
         echo "  <tr>   
