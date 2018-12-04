@@ -17,7 +17,7 @@
  * @version         $Id: showuser.php 1 2009-11-29 20:00:00 dhcst $
  */
 
-include_once('../../../mainfile.php');
+include_once '../../../mainfile.php';
 xoops_loadLanguage('misc');
 xoops_loadLanguage('main', 'onlinehistory');
 
