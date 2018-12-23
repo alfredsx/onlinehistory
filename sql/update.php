@@ -17,7 +17,7 @@
  * @version         $Id: update.php 1 2009-11-29 20:00:00 dhcst $
  */
  
-function xoops_module_update_onlinehistory(&$module, $oldversion = null) 
+function xoops_module_update_onlinehistory($module, $oldversion = null) 
 {
       
     if ($oldversion < 110) 
@@ -45,4 +45,3 @@ function xoops_module_update_onlinehistory(&$module, $oldversion = null)
     
     return true;
 }
-?>

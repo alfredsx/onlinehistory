@@ -146,4 +146,3 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
         return $ret;
     }
 }
-?>
