@@ -13,10 +13,9 @@
  * @license             GNU GPL (http://www.gnu.org/licenses/gpl-2.0.html/)
  * @package             Profile
  * @since               2.5.0
- * @author              Mage, Mamba
+ * @author              Mage, Mamba, Alfred
  **/
 
-include_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 include_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 

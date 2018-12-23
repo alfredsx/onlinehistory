@@ -17,9 +17,9 @@
  */
 
 $path = dirname(dirname(dirname(__DIR__)));
-include_once $path . '/mainfile.php';
-include_once $path . '/include/cp_functions.php';
-require_once $path . '/include/cp_header.php';
+include $path . '/mainfile.php';
+include $path . '/include/cp_functions.php';
+include $path . '/include/cp_header.php';
 
 global $xoopsModule;
 

@@ -42,7 +42,6 @@ switch ($op) {
         break;
     case 'default':
     default:
-
         $indexAdmin = new ModuleAdmin();
         $indexAdmin->addItemButton(_DELETE . ' ' . _AM_ONLINEHISTORY_FORM, 'logs.php?op=del', 'delete', '');
         echo $indexAdmin->addNavigation(basename(__FILE__));
@@ -97,7 +96,6 @@ switch ($op) {
         include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
         $pagenav = new XoopsPageNav($history_total, $limit, $start, 'start', '');
         echo $pagenav->renderNav(5);
-        echo '<br />';
     } 
     break;
 }

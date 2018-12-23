@@ -119,4 +119,3 @@ $modversion['config'][$i]['description']    = '_MI_ONLINEHISTORY_DISPLAYMAXUSER_
 $modversion['config'][$i]['formtype']       = 'yesno';
 $modversion['config'][$i]['valuetype']      = 'int';
 $modversion['config'][$i]['default']        = 1;
-?>
