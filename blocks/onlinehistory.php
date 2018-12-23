@@ -60,27 +60,23 @@ function b_onlinehistory_show($options) {
     global $xoopsDB, $xoopsUser, $xoopsModule;
     
     $history_handler = xoops_getModuleHandler('history', 'onlinehistory');             
-    $online_spider      = 0;
-    $guest_online_num   = 0;
-    $member_online_num  = 0;
-    $list_online = array();
-    $block = array();
+    $online_spider = $guest_online_num = $member_online_num = 0;
+    $list_online = $block = array();
     $module_handler = xoops_getHandler('module');
     $config_handler = xoops_getHandler('config');
     $olModule = $module_handler->getByDirname('onlinehistory');
     $olConfig = $config_handler->getConfigsByCat(0, $olModule->getVar('mid')); 
     unset($olModule);    
-    $moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;      
     $block['title'] = _MB_ONLINEHISTORY_TITLE1;
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     
     $result = $xoopsDB->query('SELECT uid FROM ' . $xoopsDB->prefix('lastseen') . ' WHERE online=1 ORDER BY uid DESC');
-    while ($r = $xoopsDB->fetchArray($result)) {
-        if ((int) $r['uid'] > 0) {
+    while ($usr = $xoopsDB->fetchArray($result)) {
+        if ((int) $usr['uid'] > 0) {
             $member_online_num++;            
         } else {
-            if ((int) $r['uid'] < 0) {
-                if ($olConfig['viewsumaonline'] == 1) {
+            if ((int) $usr['uid'] < 0) {
+                if ($olConfig['viewsumaonline'] === 1) {
                     $online_spider++;
                 } 
             } else {
@@ -90,7 +86,7 @@ function b_onlinehistory_show($options) {
     }
     
     $online_history_num = $guest_online_num + $member_online_num + $online_spider;
-    if ($olConfig['viewmaxonline'] == 1) {
+    if ($olConfig['viewmaxonline'] === 1) {
         $maxuser = $history_handler->readmax();
         $block['maxonline'] = sprintf(_MB_ONLINEHISTORY_MAXUSER, formatTimestamp($maxuser[1], 'm'), $maxuser[0]);
     }
@@ -103,21 +99,21 @@ function b_onlinehistory_show($options) {
     $block['online_total'] = sprintf(_MB_ONLINEHISTORY_ALLUSER, $online_history_num);
     $block['online_users'] = '';
     if ($guest_online_num == 1 && $member_online_num == 0) {
-            $block['online_users'] .= _MB_ONLINEHISTORY_THERE_ONLYONEGUEST;
+        $block['online_users'] .= _MB_ONLINEHISTORY_THERE_ONLYONEGUEST;
     } elseif ($guest_online_num == 0 && $member_online_num == 1) {
-            $block['online_users'] .= _MB_ONLINEHISTORY_THERE_ONLYMEMBER;
+        $block['online_users'] .= _MB_ONLINEHISTORY_THERE_ONLYMEMBER;
     } elseif ($guest_online_num == 1 && $member_online_num == 1) {
-            $block['online_users'] .= _MB_ONLINEHISTORY_THERE_ONLYON;
+        $block['online_users'] .= _MB_ONLINEHISTORY_THERE_ONLYON;
     } elseif ($guest_online_num == 1 && $member_online_num > 1) {
-            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_ONEMEMBERMORE, $member_online_num);
+        $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_ONEMEMBERMORE, $member_online_num);
     } elseif ($guest_online_num > 1 && $member_online_num == 1) {
-            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_ONEGUESTMORE, $guest_online_num);
+        $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_ONEGUESTMORE, $guest_online_num);
     } elseif ($guest_online_num == 0 && $member_online_num > 1) {
-            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_NOMEMBERMORE, $member_online_num);
+        $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_NOMEMBERMORE, $member_online_num);
     } elseif ($guest_online_num > 1 && $member_online_num == 0) {
-            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_NOGUESTMORE, $guest_online_num);
+        $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE_NOGUESTMORE, $guest_online_num);
     } else {
-            $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE, $guest_online_num, $member_online_num);
+        $block['online_users'] .= sprintf(_MB_ONLINEHISTORY_THERE, $guest_online_num, $member_online_num);
     }
     
     if ($online_spider > 0) {
@@ -128,9 +124,9 @@ function b_onlinehistory_show($options) {
         $first = 0;
         $result = $xoopsDB->query('SELECT l.uid, l.username, u.name FROM ' . $xoopsDB->prefix('lastseen') . ' as l, ' . $xoopsDB->prefix('users') . ' as u WHERE l.uid>0 AND l.online=1 AND l.uid=u.uid AND 1=1 LIMIT 10');
         while (list($memuid, $memusername, $memname) = $xoopsDB->fetchRow($result)) {
-        if ($first != 0) {
-            $block['useronline'] .= ', ';
-        }
+            if ($first != 0) {
+                $block['useronline'] .= ', ';
+            }
             $list_online[] = $memuid;
             $name = ($options[3] == 1) ? ((trim($memname) != '') ? $memname : $memusername) : $memusername;
             $block['useronline'] .= '<a href="' . XOOPS_URL . "/userinfo.php?uid=$memuid\">" . $myts->htmlSpecialChars($name) . '</a>';
@@ -173,7 +169,7 @@ function b_onlinehistory_create($date) {
     if ($realtime >= 86400) { // if it's been more than a day
         $differenz = $interval->format('%d ' . _MB_ONLINEHISTORY_DAYS);	
     } else if ($realtime >= 3600) {
-        $differenz = $interval->format('%h ' . _MB_ONLINEHISTORY_HRS . ', %i ' . _MB_ONLINEHISTORY_MINS);
+        $differenz = $interval->format('%h '. _MB_ONLINEHISTORY_HRS . ', %i ' . _MB_ONLINEHISTORY_MINS);
     } else {
         $differenz = $interval->format('%i ' . _MB_ONLINEHISTORY_MINS);
     }
@@ -211,15 +207,15 @@ function b_onlinehistory_edit($options) {
 /*
 * Function to update last seen table
 */
-function b_onlinehistory_update($guest_online = 300, $user_online = 8640000, $moduleid = 0) {
-    global $xoopsUser, $xoopsModule;
+function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
+    global $xoopsUser,$xoopsModule;
       
     $history_handler = xoops_getModuleHandler('history', 'onlinehistory');
     $history_handler->getUpdate($guest_online, $user_online);
     
     $ip = \Xmf\IPAddress::fromRequest()->asReadable();
     $ip = (false === $ip) ? '0.0.0.0' : $ip;
-    $agent = $_SERVER['HTTP_USER_AGENT'];
+    $agent  = $_SERVER['HTTP_USER_AGENT'];
     
     if ($xoopsUser) {
         $uid = $xoopsUser->getVar('uid');
@@ -253,7 +249,7 @@ function b_onlinehistory_update($guest_online = 300, $user_online = 8640000, $mo
     $moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;
     $history_handler->getUpdateUser($uid, $uname, $ip, $agent, $moduleid, $suma);
     
-    if ($olConfig['viewmaxonline'] == true) {
+    if ($olConfig['viewmaxonline'] === true) {
         $criteria = new CriteriaCompo();
         $criteria->add(new criteria('online', '0', '>'));
         if ($olConfig['viewsumaonline'] == 1) {

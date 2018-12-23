@@ -82,7 +82,7 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
     
     public function getUpdateUser($uid = 0, $uname = '', $ip = '', $agent = '', $module = 0, $suma = 1) 
     {
-        if ($uid < -1 || $ip == '') {
+        if ($uid < -1 || $ip === '') {
             return false;
         }
         $sql = 'SELECT count(uid) as cuid FROM ' . $this->table . ' WHERE uid=' . $uid;
@@ -100,7 +100,7 @@ class OnlinehistoryHistoryHandler extends XoopsPersistableObjectHandler
             $sql = 'INSERT INTO ' . $this->table . ' (uid, username, time, ip, online, uagent, module) VALUES (' . $uid . ", '" . $uname . "', " . time() . ", '" . $ip . "', 1, '" . $agent . "', " . $module . ')';
         }
         $this->db->queryF($sql);
-        if ($suma == 0) {
+        if ($suma === 0) {
             $sql = 'DELETE FROM ' . $this->table . ' WHERE uid<0';
             $this->db->queryF($sql);
         }
