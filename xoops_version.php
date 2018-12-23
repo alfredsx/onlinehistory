@@ -79,7 +79,7 @@ $modversion['blocks'][1]['template']    = 'history_block_online.tpl';
 $modversion['blocks'][2]['file']	    = 'onlinehistory.php';
 $modversion['blocks'][2]['name']	    = _MI_ONLINEHISTORY_BNAME2;
 $modversion['blocks'][2]['description']	= _MI_ONLINEHISTORY_BNAME2_DESC;
-$modversion['blocks'][2]['show_func'] = 'b_onlinehistory_checkshow';
+$modversion['blocks'][2]['show_func']   = 'b_onlinehistory_checkshow';
 $modversion['blocks'][2]['edit_func']   = 'b_onlinehistory_checkedit';
 $modversion['blocks'][2]['options']	    = '5|7';
 

@@ -25,7 +25,7 @@ xoops_loadLanguage('main', 'onlinehistory');
 
 function b_onlinehistory_checkshow($options) {
     $time_guest = $options[0] * 60; // Angabe in Minuten bei Gästen
-    $time_user = $options[1] * 60 * 60 * 24; // Angabe in Tagen bei Usern
+    $time_user = $options[1] * 60 * 60 * 24; // Angabe in Tagen bei Usern  
     b_onlinehistory_update($time_guest, $time_user);  
 }
 
@@ -211,13 +211,14 @@ function b_onlinehistory_edit($options) {
 /*
 * Function to update last seen table
 */
-function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
-    global $xoopsUser, $xoopsModule;
+function b_onlinehistory_update($guest_online = 300, $user_online = 8640000, $moduleid = 0) {
+    global $xoopsUser,$xoopsModule;
       
     $history_handler = xoops_getModuleHandler('history', 'onlinehistory');
     $history_handler->getUpdate($guest_online, $user_online);
     
-    $ip     = $_SERVER['REMOTE_ADDR']; 
+    $ip = \Xmf\IPAddress::fromRequest()->asReadable();
+    $ip = (false === $ip) ? '0.0.0.0' : $ip;
     $agent  = $_SERVER['HTTP_USER_AGENT'];
     
     if ($xoopsUser) {
@@ -228,29 +229,29 @@ function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
         $uname = _MA_ONLINEHISTORY_GUEST;
     }
     
-    $sumaagent = _getAgent($agent);
-    if ($agent == $sumaagent[0] && $uid < 1) 
-    {
-        $uname = 'Bot: ' . $sumaagent[1];
-        $uid = -1;
-    }
-    
-    if ($agent == '') {
-        $agent = 'Unknown';
-    }
-    
     $module_handler = xoops_getHandler('module');
     $config_handler = xoops_getHandler('config');
     $olModule = $module_handler->getByDirname('onlinehistory');
     $olConfig = $config_handler->getConfigsByCat(0, $olModule->getVar('mid')); 
-    unset($olModule);
-	
-    $moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;
+    unset($olModule);  
     $suma = (int)$olConfig['viewsumaonline'];
-        
-    if ($suma == 1 || $uid > -1) {
-        $history_handler->getUpdateUser($uid, $uname, $ip, $agent, $moduleid, $suma);
-    }  
+    
+    if ($suma === 1) 
+    {
+        $sumaagent = getAgent($agent);
+        if ($agent == $sumaagent[0] && $uid < 1) 
+        {
+            $uname = 'Bot: ' . $sumaagent[1];
+            $uid = -1;
+        }
+    }
+    
+    if ($agent === '') {
+        $agent = 'Unknown';
+    }   
+    
+    $moduleid = (is_object($xoopsModule)) ? $xoopsModule->getVar('mid') : 0;
+    $history_handler->getUpdateUser($uid, $uname, $ip, $agent, $moduleid, $suma);
     
     if ($olConfig['viewmaxonline'] == true) {
         $criteria = new CriteriaCompo();
@@ -264,7 +265,7 @@ function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
 }
 
 
-function _getAgent($user_agent = '')
+function getAgent($user_agent = '')
 {
     $xmlurl   = 'http://www.user-agents.org/allagents.xml';
     $xmlfile  = 'history_bots';

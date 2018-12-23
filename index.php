@@ -56,4 +56,3 @@ if ($history_total > $count) {
 }
 $xoopsTpl->assign('timelife', sprintf(_MA_ONLINEHISTORY_TIMELIFE, $xoopsModuleConfig['timelife']));
 include $GLOBALS['xoops']->path('footer.php');
-?>
