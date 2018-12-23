@@ -55,7 +55,7 @@ if ($action === 'showpopups') {
             
             $module_handler = xoops_getHandler('module');
             $maxlimit = 17;
-            $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+            $start = isset($_GET['start']) ? (int) $_GET['start'] : 0;
             
             $history_handler = xoops_getModuleHandler('history', 'onlinehistory'); 
             $module_handler = xoops_getHandler('module');
