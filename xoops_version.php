@@ -19,7 +19,7 @@
 
 $modversion                 	= array();
 $modversion['name']         	= _MI_ONLINEHISTORY_NAME;
-$modversion['version']      	= 1.3.1;
+$modversion['version']      	= 1.3;
 $modversion['description']  	= _MI_ONLINEHISTORY_DESC;
 $modversion['author']       	= '';
 $modversion['credits']      	= 'The SIMPLE-XOOPS Project';
