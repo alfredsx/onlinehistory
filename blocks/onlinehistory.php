@@ -169,7 +169,7 @@ function b_onlinehistory_create($date) {
     if ($realtime >= 86400) { // if it's been more than a day
         $differenz = $interval->format('%d ' . _MB_ONLINEHISTORY_DAYS);	
     } else if ($realtime >= 3600) {
-        $differenz = $interval->format('%h '. _MB_ONLINEHISTORY_HRS . ', %i ' . _MB_ONLINEHISTORY_MINS);
+        $differenz = $interval->format('%h ' . _MB_ONLINEHISTORY_HRS . ', %i ' . _MB_ONLINEHISTORY_MINS);
     } else {
         $differenz = $interval->format('%i ' . _MB_ONLINEHISTORY_MINS);
     }
@@ -208,14 +208,14 @@ function b_onlinehistory_edit($options) {
 * Function to update last seen table
 */
 function b_onlinehistory_update($guest_online = 300, $user_online = 8640000) {
-    global $xoopsUser,$xoopsModule;
+    global $xoopsUser, $xoopsModule;
       
     $history_handler = xoops_getModuleHandler('history', 'onlinehistory');
     $history_handler->getUpdate($guest_online, $user_online);
     
     $ip = \Xmf\IPAddress::fromRequest()->asReadable();
     $ip = (false === $ip) ? '0.0.0.0' : $ip;
-    $agent  = $_SERVER['HTTP_USER_AGENT'];
+    $agent = $_SERVER['HTTP_USER_AGENT'];
     
     if ($xoopsUser) {
         $uid = $xoopsUser->getVar('uid');
