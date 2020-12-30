@@ -3,7 +3,7 @@
  * OnlineHistory module
  *
  * You may not change or alter any portion of this comment or credits
- * of supporting developers from this source code or any supporting source code 
+ * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -34,7 +34,7 @@ define('_MI_ONLINEHISTORY_VIEWLIMIT', 'Anzeige von xx Usern');
 define('_MI_ONLINEHISTORY_VIEWLIMIT_DESC', 'zeigt in der Übersicht die genannte Anzahl User je Seite an.');
 
 define('_MI_ONLINEHISTORY_DISPLAYSUMA', 'Anzeige von Suchmaschinen oder Bots');
-define('_MI_ONLINEHISTORY_DISPLAYSUMA_DESC', '');
+define('_MI_ONLINEHISTORY_DISPLAYSUMA_DESC', 'Sollen Suchmaschinen mit angezeigt werden?');
 define('_MI_ONLINEHISTORY_DISPLAYMAXUSER', 'Anzeige der max. User die gleichzeitig online waren');
 define('_MI_ONLINEHISTORY_DISPLAYMAXUSER_DESC', '');
 
